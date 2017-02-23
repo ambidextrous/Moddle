@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^faq/$', views.faq, name='faq'),
     url(r'^search/$', views.search, name='search'),
     url(r'^login/$', views.login, name='login'),
+    url(r'^logout/$', views.logout, name='logout'),	
     url(r'^register/$', views.register, name='register'),
 ]
 

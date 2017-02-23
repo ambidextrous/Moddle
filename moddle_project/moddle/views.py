@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth import logout
 
 def index(request):
     context_dict = {'': ''}
@@ -12,6 +13,11 @@ def login(request):
     context_dict = {'': ''}
     return render(request, 'moddle/login.html', context=context_dict)
 
+@login_required	
+def logout(request):
+	logout(request)
+    return HttpRepsonseRedirect(reverse('index'))	
+	
 def register(request):
     context_dict = {'': ''}
     return render(request, 'moddle/register.html', context=context_dict)
