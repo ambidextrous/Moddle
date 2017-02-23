@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+	<title>Moddle: The Bike Sharing Website</title>
+
+		<ul class="topnav" id="myTopnav">
+		
+			<li><a href="#search">search</a></li>
+			<li><a href="#about">About</a></li>
+			<li><a href="#contact">Contact</a></li>
+			<li><a href="#faqs">FAQs</a></li>
+			<li><a href="#about">About</a></li>
+			  
+			<!-- Visible if not logged in -->
+			<li><a href="#login">Login</a></li>
+			<li><a href="#signup">Sign up</a></li>
+
+			<!-- Visible if logged in -->
+			<li><a href="#logout">Log out</a></li>  
+			<li class="icon">
+				<a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+			</li>
+		</ul>
+</head>
+
+
+
+<body>
+	<h1>My First Heading</h1>
+	<p>My first paragraph.</p>
+</body>
+
+
+
+</html>
+  
