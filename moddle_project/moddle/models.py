@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+import datetime
 
 class User(models.Model):
 	username = models.CharField(max_length=128, unique=True)
@@ -32,4 +33,12 @@ class Bike(models.Model):
 	def __unicode__(self):
 		return self.name
 
-class Booking(models.Model):
+#class Booking(models.Model):
+#	start_date = models.DateField()
+#	finish_date = models.DateField()
+#	owner = models.ForeignKey(User)
+#	borrower = models.ForeignKey(User)
+#	bikeid = models.ForeignKey(Bike)
+#
+#	def save(self, *args, **kwargs):
+#		super(Booking, self).save(*args, **kwargs)
