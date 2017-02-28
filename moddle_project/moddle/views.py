@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
 
 def index(request):
     context_dict = {'': ''}
@@ -15,9 +18,8 @@ def login(request):
 
 @login_required	
 def logout(request):
-	logout(request)
-    return HttpRepsonseRedirect(reverse('index'))	
-	
+    return HttpResponseRedirect(reverse('index'))
+
 def register(request):
     context_dict = {'': ''}
     return render(request, 'moddle/register.html', context=context_dict)
