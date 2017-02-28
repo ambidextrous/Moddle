@@ -55,3 +55,6 @@ docs/_build
 # AB aditionss:
 # Excluding database
 db.sqlite3
+
+# Vim swap files
+**.swp 

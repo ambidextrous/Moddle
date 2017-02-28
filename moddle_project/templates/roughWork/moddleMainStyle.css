@@ -14,17 +14,16 @@ h1 {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-.header img {
-	float: left;
-	width: 100px;
-	height: 100px;
-	background: #555;
+.header {
+        border:2px solid red;
 }
-
-.header h1 {
-	position: relative;
-	top: 18px;
-	left: 10px;
+    
+.header .image {
+        background: url("logo-256.png") 
+                    no-repeat;
+        width: 65px;
+        height: 65px;
+        border:2px solid green;
 }
 
 
