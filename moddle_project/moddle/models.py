@@ -19,13 +19,14 @@ class User(models.Model):
         return self.username
 
 class Bike(models.Model):
+    #id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128)
     owner = models.ForeignKey(User)
     boys_bike = models.BooleanField()
     adults_bike = models.BooleanField()
     description = models.CharField(max_length=512, unique=True)
     #bike_picture = models.ImageField()
-    bike_picture = models.ImageField(upload_to='profile_images', blank=True)
+    bike_picture = models.ImageField(upload_to="bikes/", blank=True)
 
     def __str__(self):
         return self.name
