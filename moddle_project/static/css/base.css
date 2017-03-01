@@ -7,21 +7,17 @@ ul {
 }
 
 li {
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-h1 {
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-
-li {
 	float: left;
 	border-right:1px solid #bbb;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 li:last-child {
 	border-right: none;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 li a {
