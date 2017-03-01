@@ -7,10 +7,14 @@
 <head>
 	<link rel ="stylesheet" href="{% static "css/base.css" %}" />
 
+ 	<img src="{% static "images/logo-256.png" %}" id="moddleLogo" alt="Moddle Logo" style="height:100px;">
+
 	<title>Moddle: The Bike Sharing Website</title>
 
 	<h1>The Bike Sharing Website</h1>
 	
+	<input type="text" name="searchbox" placeholder="Search...">
+
 		<ul class="topnav" id="myTopnav">
 
 			<li><a href="#{% url 'index' %}">Home</a></li>			

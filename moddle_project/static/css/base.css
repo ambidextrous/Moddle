@@ -18,6 +18,18 @@ li:last-child {
 
 h1 {
     font-family: Arial, Helvetica, sans-serif;
+	color: #4F5D73;
+	text-align: center;
+}
+
+#moddleLogo {
+    display: block;
+    margin: auto;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
+	color: #4F5D73;
 }
 
 li a {
@@ -28,8 +40,19 @@ li a {
 	text-decoration: none;
 }
 
+.input[type=text] {
+    width: 150px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+/* On focus, width -> 100% */
+input[type=text]:focus {
+    width: 100%;
+}
+
 li a:hover:not(.active) {
-	background-color: #111;
+	background-color: #4F5D73; 
 }
 
 .active {
