@@ -5,30 +5,38 @@
 <html>
 
 <head>
+	<link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+
+	<link rel ="stylesheet" href="{% static "css/base.css" %}" />
+
+ 	<img src="{% static "images/logo-256.png" %}" id="moddleLogo" alt="Moddle Logo" style="height:100px;">
 
 	<title>Moddle: The Bike Sharing Website</title>
 
-	<h1>Moddle: The Bike Sharing Website</h1>
+	<h1>Moddle</h1>
+	<h2>The Bike Sharing Website</h2>
 	
+	<input type="text" name="searchbox" placeholder="Search...">
+
 		<ul class="topnav" id="myTopnav">
 
-			<li><a href="#{% url 'index' %}">Home</a></li>			
-			<li><a href="#{% url 'about' %}">About</a></li>
-			<li><a href="#{% url 'contact_us' %}">Contact</a></li>
-			<li><a href="#{% url 'faq' %}">FAQs</a></li>
-			<li><a href="#{% url 'search' %}">Search</a></li>	
+			<li><a href="{% url 'index' %}">Home</a></li>			
+			<li><a href="{% url 'about' %}">About</a></li>
+			<li><a href="{% url 'contact_us' %}">Contact</a></li>
+			<li><a href="{% url 'faq' %}">FAQs</a></li>
+			<li><a href="{% url 'search' %}">Search</a></li>	
 			
 			{% if user.is_authenticated %}
 			
-				<li><a href="#{% url 'user_profile' %}">Profile</a></li>
-				<li><a href="#{% url 'upload_bike' %}">Add Bike</a></li>
-				<li><a href="#{% url 'request_bike' %}">Make booking</a></li>				
-				<li><a href="#{% url 'logout' %}">Log out</a></li>  
+				<li><a href="{% url 'user_profile' %}">Profile</a></li>
+				<li><a href="{% url 'upload_bike' %}">Add Bike</a></li>
+				<li><a href="{% url 'request_bike' %}">Make booking</a></li>				
+				<li><a href="{% url 'auth_logout' %}?next=/">Log out</a></li>  
 				
 			{% else %}
 			
-				<li><a href="#{% url 'login' %}">Login</a></li>
-				<li><a href="#{% url 'register' %}">Register</a></li>	
+				<li><a href="{% url 'auth_login' %}">Login</a></li>
+				<li><a href="{% url 'registration_register' %}">Register</a></li>	
 				
 			{% endif %}
 			

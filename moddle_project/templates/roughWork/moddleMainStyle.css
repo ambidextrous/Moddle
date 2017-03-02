@@ -14,18 +14,6 @@ h1 {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-.header {
-        border:2px solid red;
-}
-    
-.header .image {
-        background: url("logo-256.png") 
-                    no-repeat;
-        width: 65px;
-        height: 65px;
-        border:2px solid green;
-}
-
 
 li {
 	float: left;
