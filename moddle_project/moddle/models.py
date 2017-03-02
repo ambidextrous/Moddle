@@ -4,6 +4,15 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 import datetime
 
+import os
+
+# Helper method to
+def get_user_image_folder(instance, filename):
+    if os.name == 'nt':
+        return "bikes/%s/%s" % (instance.owner.username, filename)
+    else:
+        return "bikes\%s\%s" % (instance.owner.username, filename)
+
 class User(models.Model):
     username = models.CharField(max_length=128, unique=True)
     full_name = models.CharField(max_length=128)
@@ -25,8 +34,7 @@ class Bike(models.Model):
     boys_bike = models.BooleanField()
     adults_bike = models.BooleanField()
     description = models.CharField(max_length=512, unique=True)
-    #bike_picture = models.ImageField()
-    bike_picture = models.ImageField(upload_to="bikes/", blank=True)
+    bike_picture = models.ImageField(upload_to=get_user_image_folder, blank=True)
 
     def __str__(self):
         return self.name

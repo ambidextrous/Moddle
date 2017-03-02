@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 
+# thumbs files
+*Thumbs.db
+
 # pycharm
 *.idea
 
