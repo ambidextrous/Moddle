@@ -31,12 +31,12 @@
 				<li><a href="{% url 'user_profile' %}">Profile</a></li>
 				<li><a href="{% url 'upload_bike' %}">Add Bike</a></li>
 				<li><a href="{% url 'request_bike' %}">Make booking</a></li>				
-				<li><a href="{% url 'logout' %}">Log out</a></li>  
+				<li><a href="{% url 'auth_logout' %}?next=/">Log out</a></li>  
 				
 			{% else %}
 			
-				<li><a href="{% url 'login' %}">Login</a></li>
-				<li><a href="{% url 'register' %}">Register</a></li>	
+				<li><a href="{% url 'auth_login' %}">Login</a></li>
+				<li><a href="{% url 'registration_register' %}">Register</a></li>	
 				
 			{% endif %}
 			
