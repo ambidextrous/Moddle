@@ -52,10 +52,6 @@ li a {
     transition: width 0.4s ease-in-out;
 }
 
-/* On focus, width -> 100% */
-input[type=text]:focus {
-    width: 100%;
-}
 
 li a:hover:not(.active) {
 	background-color: #4F5D73; 

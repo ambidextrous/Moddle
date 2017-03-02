@@ -33,12 +33,13 @@ urlpatterns = [
     url(r'^contact_us/$', views.contact_us, name='contact_us'),
     url(r'^faq/$', views.faq, name='faq'),
     url(r'^search/$', views.search, name='search'),	
-    url(r'^(?P<user_name_slug>[\w\-]+)/$', views.index, name='user_profile'),
+    url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+    '''url(r'^(?P<user_name_slug>[\w\-]+)/$', views.index, name='user_profile'),
     url(r'^(?P<user_name_slug>[\w\-]+)/mybookings/$', views.view_bookings, name='view_bookings'),
     url(r'^(?P<user_name_slug>[\w\-]+)/addbike/$', views.upload_bike, name='upload_bike'),
     url(r'^(?P<bike_id_slug>[\w\-]+)/$', views.bike_profile, name='bike_profile'),
-    url(r'^(?P<bike_id_slug>[\w\-]+)/request/$', views.request_bike, name='request_bike'),
-    url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^(?P<bike_id_slug>[\w\-]+)/request/$', views.request_bike, name='request_bike'),'''
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
