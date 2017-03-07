@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'moddle',
     'registration',
+	# Added for easy maps 
+	'easy_maps',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +148,7 @@ LOGIN_REDIRECT_URL = '/'
 # The page users are directed to if they are not logged in,
 # and are trying to access pages requiring authentication
 LOGIN_URL = '/accounts/login/'
+
+# Easy maps variables
+EASY_MAPS_GOOGLE_MAPS_API_KEY = 'AIzaSyDBn9v1OjmfF9aOs3HC-XS-jFp3smJPyIc'
+EASY_MAPS_CENTER = (55.857194, -4.246442)
