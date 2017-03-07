@@ -5,6 +5,18 @@
 {% extends 'moddle/base.html' %}
 {% load staticfiles %}
 
+<!-- Added for easy maps -->
+{% load easy_maps_tags %}
+
 {% block body_block %}
+
 <p>Welcome to the about page</p>
+
+
+<h2>Easy maps test</h2>
+
+<!-- Default map with 300x400 dimensions -->
+{% easy_map "Russia, Ekaterinburg, Mira 32" 300 400 %}
+
+
 {% endblock %}
