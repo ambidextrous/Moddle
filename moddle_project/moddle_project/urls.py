@@ -35,9 +35,9 @@ urlpatterns = [
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^$', views.index, name='index'),
-    url(r'^(?P<user_name_slug>[\w\-]+)/$', views.index, name='user_profile'),
-    url(r'^(?P<user_name_slug>[\w\-]+)/mybookings/$', views.view_bookings, name='view_bookings'),
-    url(r'^(?P<user_name_slug>[\w\-]+)/addbike/$', views.upload_bike, name='upload_bike'),
+    url(r'^(?P<username>[\w\-]+)/$', views.user_profile, name='user_profile'),
+    url(r'^(?P<username>[\w\-]+)/mybookings/$', views.view_bookings, name='view_bookings'),
+    url(r'^(?P<username>[\w\-]+)/addbike/$', views.upload_bike, name='upload_bike'),
     url(r'^(?P<bike_id_slug>[\w\-]+)/$', views.bike_profile, name='bike_profile'),
     url(r'^(?P<bike_id_slug>[\w\-]+)/request/$', views.request_bike, name='request_bike'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

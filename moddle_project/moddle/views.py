@@ -4,6 +4,15 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
+def get_user_object(request):
+    if request.user.is_authenticated():
+        current_user = request.user
+        print current_user.username
+        return current_user
+    else:
+        print "Not logged in"
+        return None
+
 def index(request):
     context_dict = {'': ''}
     return render(request, 'moddle/index.html', context=context_dict)
