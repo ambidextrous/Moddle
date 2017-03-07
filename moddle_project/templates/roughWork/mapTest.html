@@ -1,27 +1,14 @@
-
-
-
-
-{% extends 'moddle/base.html' %}
-{% load staticfiles %}
-
-{% block body_block %}
-
-<h1>User Name</h1>
-
-<h2>About me</h2>
-<p>GALLIA est omnis divisa in partes tres, quarum unam incolunt Belgae, aliam Aquitani, tertiam qui ipsorum lingua Celtae, nostra Galli appellantur. Hi omnes lingua, institutis, legibus inter se differunt.
-Gallos ab Aquitanis Garumna flumen, a Belgis Matrona et Sequana dividit.</p>
-
-<img src="../roughWork/profilePic.jpg" alt="Your profile picture" style="height:228px;">
-
-<h2>Location</h2>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 25%;
-		width: 25%;
+        height: 100%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -30,6 +17,8 @@ Gallos ab Aquitanis Garumna flumen, a Belgis Matrona et Sequana dividit.</p>
         padding: 0;
       }
     </style>
+  </head>
+  <body>
     <div id="map"></div>
     <script>
       var map;
@@ -42,9 +31,5 @@ Gallos ab Aquitanis Garumna flumen, a Belgis Matrona et Sequana dividit.</p>
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBn9v1OjmfF9aOs3HC-XS-jFp3smJPyIc&callback=initMap"
     async defer></script>
-
-<h2>My Bikes</h2>
-
-
-<p>Welcome to the user profile page</p>
-{% endblock %}
+  </body>
+</html>
