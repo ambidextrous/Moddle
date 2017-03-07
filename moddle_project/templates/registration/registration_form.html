@@ -1,12 +1,9 @@
-
 {% extends 'moddle/base.html' %}
-{% load staticfiles %}
-
 {% block body_block %}
-<p>Welcome to the register page</p>
-<form method="post" action=".">
-{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Submit" />
-</form>
+    <p>Welcome to the register page</p>
+    <form method="post" action=".">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" />
+    </form>
 {% endblock %}
