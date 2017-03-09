@@ -15,32 +15,15 @@
 <img src="../roughWork/profilePic.jpg" alt="Your profile picture" style="height:228px;">
 
 <h2>Location</h2>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 25%;
-		width: 25%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+	
+	<p>Click on the map to select your home location:</p>
     <div id="map"></div>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 55.857194, lng: -4.246442}, 		  
-          zoom: 8
-        });
-      }
+
+	<script src="{% static "js/locationSelector.js" %}"></script>	
+	<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVZpuFDB4wTBAxpaLPKEtQXIgMvkxUTz8&callback=initMap">
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBn9v1OjmfF9aOs3HC-XS-jFp3smJPyIc&callback=initMap"
-    async defer></script>
+
 
 <h2>My Bikes</h2>
     {% if bikes %}

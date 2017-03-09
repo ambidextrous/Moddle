@@ -21,10 +21,8 @@ function initMap() {
 		
 		if (confirm('Are you sure you want to set this position as your new location?')) {
 		
-			// Save it!
-			
-			//sendToDjango(userChosenLat, userChosenLong);
-			
+			// Calls function to send GET request to Django view
+			sendToDjango(userChosenLat, userChosenLong);
 			
 			// Deletes any existing markers
 			if (markers.length > 0) {
@@ -38,6 +36,20 @@ function initMap() {
 		
 			// Do nothing!
 		}			
+	});	
+}
+
+// Sends a lat-long info to Django view as GET request
+function sendToDjango(userChosenLat,userChosenLong) {
+	// Using the core $.ajax() method
+	$.ajax({ 
+		// The URL for the request
+		url: "/moddle/storelatlong",
+		// The data to send (will be converted to a query string)
+		data: {
+			lng: userChosenLat,
+			lat: userChosenLong
+		},
 	});	
 }
 
@@ -69,3 +81,18 @@ function deleteMarkers(map,markers) {
 	clearMarkers(map,markers);
 	markers = [];
 }
+	
+/* // //Using the core $.ajax() method
+$.ajax({ 
+    // //The URL for the request
+    url: "/moddle/storelatlong",
+    // //The data to send (will be converted to a query string)
+    data: {
+        lng: 55.87371280304047,
+        // //lng: userChosenLat,
+		lat: -4.2924705147743225
+		// //lat: userChosenLong
+    },
+}); */
+		
+		
