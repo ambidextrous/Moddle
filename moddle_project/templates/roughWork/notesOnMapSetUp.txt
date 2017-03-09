@@ -1,0 +1,34 @@
+View that takes lat and long as parameters
+Create the URL mapping
+
+/appname/storelatlong?latitude=x.xxxx&longitude=y.yyyy
+
+you can send a response back (if you need to send information back to the client)
+return any response in JSON, have a look at: http://stackoverflow.com/a/2428119 for an example
+
+in your DJANGO view:
+
+	request['latitude']
+	request['longitude']
+
+	
+	
+	
+	
+in javascript...
+
+	download jquery, add it to you HTML template
+	
+	in your javascript file...
+	
+	$.ajax({
+		url: '/appname/storelatlong',
+		data: {
+			latitude: MAPS.LATITUDE,
+			longitude: MAPS.LONGITUDE
+		})
+		.done (function(data, textStatus) { alert("SUCCESS!") };
+	
+
+		
+JQUERY CALL -> AJAX REQUEST -> DJANGO VIEW -> BACK TO AJAX REQUEST -> DEAL WITH RESPONSE!
