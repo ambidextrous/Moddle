@@ -17,7 +17,8 @@ def index(request):
     context_dict = {'': ''}
     return render(request, 'moddle/index.html', context=context_dict)
 
-def user_profile(request):
+def user_profile(request, username=None):
+
     context_dict = {'': ''}
     return render(request, 'moddle/user_profile.html', context=context_dict)
 
@@ -37,7 +38,8 @@ def search(request):
     context_dict = {'': ''}
     return render(request, 'moddle/search.html', context=context_dict)
 
-def upload_bike(request):
+@login_required
+def upload_bike(request, username):
     context_dict = {'': ''}
     return render(request, 'moddle/upload_bike.html', context=context_dict)
 
@@ -45,10 +47,12 @@ def bike_profile(request):
     context_dict = {'': ''}
     return render(request, 'moddle/bike_profile.html', context=context_dict)
 
+@login_required
 def request_bike(request):
     context_dict = {'': ''}
     return render(request, 'moddle/request_bike.html', context=context_dict)
 
+@login_required
 def view_bookings(request):
     context_dict = {'': ''}
     return render(request, 'moddle/view_bookings.html', context=context_dict)
