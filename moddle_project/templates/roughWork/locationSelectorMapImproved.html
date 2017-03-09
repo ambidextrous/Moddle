@@ -40,6 +40,16 @@
   <body>
     <div id="map"></div>
     <script>
+	
+	function sendToDjango(lat, longi) {
+		$.ajax(
+			data: {
+				latitude: lat,
+				longitude: longi
+			}
+		)...
+	}
+	
     function initMap() {
 	
 		// Boyde Orr: centre of the known universe
@@ -61,14 +71,26 @@
 			console.log('userChosenLat = ', userChosenLat);
 			console.log('userChosenLong = ', userChosenLong);
 			
-			// Deletes any existing markers
-			if (markers.length > 0) {
-				deleteMarkers(map,markers);
-			} 
+			alert
 			
-			// Adds a new marker
-			addMarker(latLng,map,markers);
+			sendToDjango(userChosenLat, userChosenLong);
 			
+			if (confirm('Are you sure you want to set the map position you just clicked on as your new location?')) {
+			
+				// Save it!
+				
+				// Deletes any existing markers
+				if (markers.length > 0) {
+					deleteMarkers(map,markers);
+				} 
+				
+				// Adds a new marker
+				addMarker(latLng,map,markers);				
+				
+			} else {
+			
+				// Do nothing!
+			}			
 		});	
     }
 	
