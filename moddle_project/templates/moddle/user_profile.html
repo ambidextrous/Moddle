@@ -1,13 +1,13 @@
-
-
-
-
 {% extends 'moddle/base.html' %}
 {% load staticfiles %}
 
 {% block body_block %}
 
-<h1>User Name</h1>
+{% if user.is_authenticated %}
+    <h1>Welcome back {{ userprofile.user.first_name }}!</h1>
+{% else %}
+    <h1>{{ userprofile.user.first_name }}, {{ userprofile.user.last_name }}'s profile.</h1>
+{% endif %}
 
 <h2>About me</h2>
 <p>I like bikes.</p>
@@ -43,5 +43,18 @@
     async defer></script>
 
 <h2>My Bikes</h2>
+    {% if bikes %}
+        {% for bike in bikes %}
+        <div id="bike">
+            <p>
+                {{ bike.name }}<br />
+                {{ bike.description }}
+            </p>
+            <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/>
 
+        </div>
+        {% endfor %}
+    {% else %}
+			<strong>This user has no bikes.</strong>
+    {% endif %}
 {% endblock %}

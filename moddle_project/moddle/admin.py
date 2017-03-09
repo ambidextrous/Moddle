@@ -1,13 +1,16 @@
 from django.contrib import admin
-from moddle.models import User, Bike
+from moddle.models import UserProfile, Bike
 #from moddle.models import Booking
 
-class UserAdmin(admin.ModelAdmin):
-	list_display = ('username', 'full_name', 'post_code')
+def user_username(self):
+    return self.user.username
+
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = (user_username, 'post_code')
 
 class BikeAdmin(admin.ModelAdmin):
-	list_display = ('name', 'owner')
+    list_display = ('name', 'owner')
 
 # Register your models here.
-admin.site.register(User, UserAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Bike, BikeAdmin)

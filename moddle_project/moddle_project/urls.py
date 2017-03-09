@@ -18,22 +18,16 @@ from django.contrib import admin
 from django.conf import settings
 from moddle import views
 from django.conf.urls.static import static
-# Add registration backend
-from registration.backends.simple.views import RegistrationView
-
-# Create a new class that redirects the user to the index page, if logging
-class MyRegistrationView(RegistrationView):
-    def get_success_url(self, user):
-        return '/'
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^about/$', views.about, name='about'),
     url(r'^contact_us/$', views.contact_us, name='contact_us'),
     url(r'^faq/$', views.faq, name='faq'),
-    url(r'^search/$', views.search, name='search'),	
-    url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^search/$', views.search, name='search'),
+    url(r'^register/$', views.register, name='register'),
+    url(r'^login/$', views.user_login, name='login'),
+    url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^$', views.index, name='index'),
     url(r'^(?P<username>[\w\-]+)/$', views.user_profile, name='user_profile'),
     url(r'^(?P<username>[\w\-]+)/mybookings/$', views.view_bookings, name='view_bookings'),

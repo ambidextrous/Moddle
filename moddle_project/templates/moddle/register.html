@@ -1,0 +1,20 @@
+{% extends 'moddle/base.html' %}
+{% block body_block %}
+	<h1>Registration Page</h1>
+	{% if registered %}
+		<strong>Thank you for registering!</strong>
+	{% else %}
+		 <p>Welcome to the register page. Please fill out the form below to regiter your account.</p>
+		<form id="user_form" method="post" action="{% url 'register' %}">
+
+			{% csrf_token %}
+
+			<!-- Display each form element in a <p> tag -->
+			{{ user_form.as_p }}
+			{{ profile_form.as_p}}
+
+			<!-- Provide a button to click to submit the form. -->
+			<input type="submit" name="submit" value="Register" />
+		</form>
+	{% endif %}
+{% endblock %}
