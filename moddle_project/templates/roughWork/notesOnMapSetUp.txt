@@ -8,10 +8,9 @@ return any response in JSON, have a look at: http://stackoverflow.com/a/2428119 
 
 in your DJANGO view:
 
-	request['latitude']
-	request['longitude']
 
-	
+	request.GET.get('latitude')
+	request.GET.get('longitude')
 	
 	
 	
