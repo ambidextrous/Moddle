@@ -1,15 +1,17 @@
 {% extends 'moddle/base.html' %}
 {% block body_block %}
 	 <p>Welcome to the upload_bike page</p>
-		<form id="bike_form" method="post" action="{% url 'upload_bike' %}">
+		<form id="bike_form" method="post" action="/{{user.username}}/addbike/">
 
 			{% csrf_token %}
 
 			<!-- Display each form element in a <p> tag -->
 			{% for field in form %}
+			<p>
 				{{ field.errors }}
 				{{ field.help_text }}
 				{{ field }}
+			</p>
 			{% endfor %}
 
 			<!-- Provide a button to click to submit the form. -->

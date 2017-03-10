@@ -182,7 +182,12 @@ def upload_bike(request, username):
 
             # Retrieve the associated information
             bike.owner = owner
+
+            # If user provides a bike picture?
+            if 'bike_picture' in request.FILES:
+                bike.bike_picture = request.FILES('bike_picture')
             bike.save()
+            return HttpResponseRedirect(reverse('index'))
         else:
             print form.errors
 

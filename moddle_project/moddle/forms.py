@@ -25,13 +25,13 @@ class UserProfileForm(forms.ModelForm):
 
 class BikeForm(forms.ModelForm):
 	name = forms.CharField(max_length=128, help_text="Please enter the name of bike.")
-	boys_bike = forms.BooleanField()
-	adults_bike = forms.BooleanField()
-	description = forms.CharField(max_length=500, help_text="Make people know your bike.")
+	boys_bike = forms.BooleanField(help_text="It's a boy bike", required=False)
+	adults_bike = forms.BooleanField(help_text="It's for adult!", required=False)
+	description = forms.CharField(max_length=500, help_text="Make people know your bike.", required=False)
 
 	class Meta:
 		# Provide an association between the ModelForm and a model
 		model = Bike
-		fields = ('name', 'boys_bike', 'adults_bike', 'description')
+		fields = ('name', 'boys_bike', 'adults_bike', 'description', 'bike_picture')
 
 
