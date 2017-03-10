@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from moddle.models import User, UserProfile, Bike
-from moddle.forms import UserForm, UserProfileForm, BikeForm
+from moddle.forms import UserForm, UserProfileForm, BikeForm, BookingForm
 # Imported to send lat-long info
 from django.http import JsonResponse
 
@@ -222,8 +222,31 @@ def bike_profile(request, bike_id_slug):
     return render(request, 'moddle/bike_profile.html', context=context_dict)
 
 @login_required
-def request_bike(request):
-    context_dict = {'': ''}
+def request_bike(request, bike_id_slug):
+
+    bike = Bike.objects.get(id=bike_id_slug)
+    owner = bike.owner
+    borrower = UserProfile.objects.get(user=request.user)
+
+    form = BookingForm()
+
+    if request.method == 'POST':
+        book = BookingForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=False)
+
+            # Retreive the booking information
+            book.owner = owner
+            book.borrower = borrower
+            book.bikeid = bike
+            bike.save()
+            print("Booking detail: {0}".format(book.id))
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            print form.errors
+
+    context_dict = {'bike': bike, 'form':form}
     return render(request, 'moddle/request_bike.html', context=context_dict)
 
 @login_required

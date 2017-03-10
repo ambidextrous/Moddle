@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from moddle.models import Bike, UserProfile
+from moddle.models import Bike, UserProfile, Booking
 
 # Added to attempt to resolve incorrect password registration problem		
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -33,5 +33,15 @@ class BikeForm(forms.ModelForm):
 		# Provide an association between the ModelForm and a model
 		model = Bike
 		fields = ('name', 'boys_bike', 'adults_bike', 'description', 'bike_picture')
+
+class BookingForm(forms.ModelForm):
+    start_date = forms.DateField(help_text="Starting date")
+    finish_date = forms.DateField(help_text="Ending date")
+
+    class Meta:
+        model = Booking
+        fields = ('start_date', 'finish_date')
+        
+
 
 

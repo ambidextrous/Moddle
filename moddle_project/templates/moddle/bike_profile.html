@@ -3,13 +3,11 @@
 
 {% block body_block %}
 
-{% if user.is_authenticated %}
-{% else %}
-{% endif %}
-
 <h1>{{ bike.name }}</h1>
-        <p>{{ bike.name }}<br />
-        {{ bike.description }}
-        </p>
-            <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/>
+        <p>{{ bike.description }}</p><br />
+        <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/><br />
+		{% if user.is_authenticated %}
+		<a href="{% url 'request_bike' bike.id %}" class="btn btn-primary">Book this bike</button>
+		{% endif %}
+
 {% endblock %}
