@@ -50,6 +50,12 @@ function sendToDjango(userChosenLat,userChosenLong) {
 			lng: userChosenLat,
 			lat: userChosenLong
 		},
+		success: function(json) {
+			console.log("Success!");
+		},
+		error: function(xhr,errmsg,err) {
+			console.log(xhr.status + ": " + xhr.responseText);
+		}
 	});	
 }
 

@@ -221,6 +221,7 @@ def about(request):
     context_dict = {'': ''}
     return render(request, 'moddle/about.html', context=context_dict)
 
+@login_required	
 def storelatlong(request):
     print "Got here!"
     context_dict = {'': ''}
