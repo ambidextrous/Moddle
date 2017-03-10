@@ -1,0 +1,15 @@
+{% extends 'moddle/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+{% if user.is_authenticated %}
+{% else %}
+{% endif %}
+
+<h1>{{ bike.name }}</h1>
+        <p>{{ bike.name }}<br />
+        {{ bike.description }}
+        </p>
+            <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/>
+{% endblock %}

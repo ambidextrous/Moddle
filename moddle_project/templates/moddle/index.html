@@ -2,5 +2,26 @@
 {% load staticfiles %}
 
 {% block body_block %}
-<p>Welcome to the index page.</p>
+
+{% if user.is_authenticated %}
+    <h1>Welcome back {{ userprofile.user.first_name }}!</h1>
+{% else %}
+    <h1>Welcome to the index page</h1>
+{% endif %}
+
+<h2>Available Bikes</h2>
+    {% if bikes %}
+        {% for bike in bikes %}
+        <div id="bike">
+            <p>
+                <a href="{% url 'bike_profile' bike.id %}">{{ bike.name }}</a><br />
+                {{ bike.description }}
+            </p>
+            <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/>
+
+        </div>
+        {% endfor %}
+    {% else %}
+			<strong>This user has no bikes.</strong>
+    {% endif %}
 {% endblock %}

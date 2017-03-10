@@ -18,7 +18,10 @@ def get_user_object(request):
         return None
 
 def index(request):
-    context_dict = {'': ''}
+    # Request the context of the request
+    # The context contains information of all available bikes
+    bike_list = Bike.objects.order_by()
+    context_dict = {'bikes':bike_list}
     return render(request, 'moddle/index.html', context=context_dict)
 
 def user_profile(request, username):
@@ -195,8 +198,27 @@ def upload_bike(request, username):
 
     return render(request, 'moddle/upload_bike.html', context=context_dict)
 
-def bike_profile(request):
-    context_dict = {'': ''}
+def bike_profile(request, bike_id_slug):
+    # Create a context dictionary which we can pass to the template rendering engine
+    # test: bike_id = 9
+    context_dict = {}
+
+    try:
+        # Can we find a bike with the given bike id slug?
+        # If we can't, the .get() method raises a DoesNotExist exception.
+        # So the .get() method returns one model instance or raises an exception.
+
+        bike = Bike.objects.get(id=bike_id_slug)
+
+        context_dict['bike'] = bike
+
+    except Bike.DoesNotExist:
+        # We get here if we didn't find the specified category.
+        # Don't do anything -
+        # the template will display the "no category" message for us.
+        print "Bike does not exist"
+        context_dict['bike'] = None
+
     return render(request, 'moddle/bike_profile.html', context=context_dict)
 
 @login_required
@@ -206,6 +228,10 @@ def request_bike(request):
 
 @login_required
 def view_bookings(request):
+
+    owner = UserProfile.objects.get(user=request.user)
+
+
     context_dict = {'': ''}
     return render(request, 'moddle/view_bookings.html', context=context_dict)
 

@@ -46,12 +46,12 @@ class Bike(models.Model):
     def __unicode__(self):
         return self.name
 
-#class Booking(models.Model):
-#    start_date = models.DateField()
-#    finish_date = models.DateField()
-#    owner = models.ForeignKey(UserProfile)
-#    borrower = models.ForeignKey(UserProfile)
-#    bikeid = models.ForeignKey(Bike)
-#
-#    def save(self, *args, **kwargs):
-#        super(Booking, self).save(*args, **kwargs)
+class Booking(models.Model):
+    start_date = models.DateField()
+    finish_date = models.DateField()
+    owner = models.ForeignKey(UserProfile, related_name='owner')
+    borrower = models.ForeignKey(UserProfile, related_name='borrower')
+    bikeid = models.ForeignKey(Bike)
+
+    def __unicode__(self):
+        return self.id
