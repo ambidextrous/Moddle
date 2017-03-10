@@ -35,9 +35,9 @@ class Bike(models.Model):
     #id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128)
     owner = models.ForeignKey(UserProfile)
-    boys_bike = models.BooleanField()
-    adults_bike = models.BooleanField()
-    description = models.CharField(max_length=512, unique=True)
+    boys_bike = models.BooleanField(default=False)
+    adults_bike = models.BooleanField(default=False)
+    description = models.CharField(max_length=512, blank=True)
     bike_picture = models.ImageField(upload_to=get_user_image_folder, blank=True)
 
     def __str__(self):
