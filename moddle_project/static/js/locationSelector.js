@@ -44,7 +44,7 @@ function sendToDjango(userChosenLat,userChosenLong) {
 	// Using the core $.ajax() method
 	$.ajax({ 
 		// The URL for the request
-		url: "/moddle/storelatlong",
+		url: "/storelatlong",
 		// The data to send (will be converted to a query string)
 		data: {
 			lng: userChosenLat,
@@ -81,18 +81,5 @@ function deleteMarkers(map,markers) {
 	clearMarkers(map,markers);
 	markers = [];
 }
-	
-/* // //Using the core $.ajax() method
-$.ajax({ 
-    // //The URL for the request
-    url: "/moddle/storelatlong",
-    // //The data to send (will be converted to a query string)
-    data: {
-        lng: 55.87371280304047,
-        // //lng: userChosenLat,
-		lat: -4.2924705147743225
-		// //lat: userChosenLong
-    },
-}); */
-		
-		
+
+			

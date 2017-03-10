@@ -34,5 +34,6 @@ urlpatterns = [
     url(r'^(?P<username>[\w\-]+)/addbike/$', views.upload_bike, name='upload_bike'),
     url(r'^(?P<bike_id_slug>[\w\-]+)/$', views.bike_profile, name='bike_profile'),
     url(r'^(?P<bike_id_slug>[\w\-]+)/request/$', views.request_bike, name='request_bike'),
+	# url for transmitting user lat-long info to database
+	url(r'^storelatlong/$', views.storelatlong, name='storelatlong'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

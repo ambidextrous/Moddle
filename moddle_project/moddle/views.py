@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from moddle.models import User, UserProfile, Bike
 from moddle.forms import UserForm, UserProfileForm
+# Imported to send lat-long info
+from django.http import JsonResponse
 
 def get_user_object(request):
     if request.user.is_authenticated():
@@ -196,3 +198,12 @@ def contact_us(request):
 def about(request):
     context_dict = {'': ''}
     return render(request, 'moddle/about.html', context=context_dict)
+
+def storelatlong(request):
+    context_dict = {'': ''}
+    lat = float(request.GET.get('lat', ''))
+    lng = float(request.GET.get('lng', ''))
+    print "lat = "+lat
+    print "lng = "+lng
+    resp_data = {'lat': lat, 'lng': lng}
+    return JsonResponse(resp_data)
