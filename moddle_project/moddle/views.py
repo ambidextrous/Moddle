@@ -217,11 +217,12 @@ def about(request):
     return render(request, 'moddle/about.html', context=context_dict)
 
 def storelatlong(request):
-    print "Get here!"
+    print "Got here!"
     context_dict = {'': ''}
     lat = float(request.GET.get('lat', ''))
     lng = float(request.GET.get('lng', ''))
-    print "lat = "+lat
-    print "lng = "+lng
-    resp_data = {'lat': lat, 'lng': lng}
-    return JsonResponse(resp_data)
+    # print "lat = "+lat
+    # print "lng = "+lng
+    # resp_data = {'lat': lat, 'lng': lng}
+    # return JsonResponse(resp_data)
+    return HttpResponse("OK")
