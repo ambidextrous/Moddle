@@ -4,13 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from moddle.models import User, UserProfile, Bike
-<<<<<<< HEAD
 from moddle.forms import UserForm, UserProfileForm, BikeForm
-=======
-from moddle.forms import UserForm, UserProfileForm
 # Imported to send lat-long info
 from django.http import JsonResponse
->>>>>>> 48e326c0a17dcdd325b380f42a27ae0dddec3f98
 
 def get_user_object(request):
     if request.user.is_authenticated():
