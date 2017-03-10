@@ -1,10 +1,18 @@
-
-
-
-
 {% extends 'moddle/base.html' %}
-{% load staticfiles %}
-
 {% block body_block %}
-<p>Welcome to the upload_bike page</p>
+	 <p>Welcome to the upload_bike page</p>
+		<form id="bike_form" method="post" action="{% url 'upload_bike' %}">
+
+			{% csrf_token %}
+
+			<!-- Display each form element in a <p> tag -->
+			{% for field in form %}
+				{{ field.errors }}
+				{{ field.help_text }}
+				{{ field }}
+			{% endfor %}
+
+			<!-- Provide a button to click to submit the form. -->
+			<input type="submit" name="submit" value="Upload this bike" />
+		</form>
 {% endblock %}

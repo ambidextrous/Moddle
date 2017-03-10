@@ -15,7 +15,7 @@ class UserForm(forms.ModelForm):
     # Each Meta class must supply a model field.
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'first_name', 'last_name')
+        fields = ('username', 'password', 'email', 'first_name', 'last_name')
         ## could also have fields to exclude here
 
 class UserProfileForm(forms.ModelForm):
@@ -23,6 +23,7 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('phone_number', 'gender_male', 'post_code')
 
+<<<<<<< HEAD
 # Added to attempt to resolve incorrect password registration problem		
 class UserCreationForm(forms.ModelForm):
     """
@@ -95,37 +96,18 @@ class CategoryForm(forms.ModelForm):
 		# this is a list of only the forms you want to display to the user.
 		fields = ('name',)
 
+=======
+>>>>>>> af17882a65bc1e9ad51e54ddaa3381ce63c40731
 
-class PageForm(forms.ModelForm):
-	title = forms.CharField(max_length=128,
-		help_text="Please enter the title of the page.")
-	url = forms.URLField(max_length=128,
-		help_text="Please enter the URL of the page.")
-	views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+class BikeForm(forms.ModelForm):
+	name = forms.CharField(max_length=128, help_text="Please enter the name of bike.")
+	boys_bike = forms.BooleanField()
+	adults_bike = forms.BooleanField()
+	description = forms.CharField(max_length=500, help_text="Make people know your bike.")
 
 	class Meta:
 		# Provide an association between the ModelForm and a model
-		model = Page
-		
-		# What fields do we want to include in our form?
-		# This way we don't need every field in the model present.
-		# Some fields may allow NULL values, so we may not want to include them.
-		# Here, we are hiding the foreign key.
-		# we can either exclude the category field from the form,
-		exclude = ('category',)
-		# or specify the fields to include (i.e. not include the category field)
-		#fields = ('title', 'url', 'views')
-		
-		def clean(self):
-			cleaned_data = self.cleaned_data
-			url = cleaned_data.get('url')
-			
-			# if url is not empty and doesn't start with 'http://',
-			# then prepend 'http://'
-			if url and not url.startswith('http://'):
-				url = 'http://' + url
-				
-				return cleaned_data
-"""
+		model = Bike
+		fields = ('name', 'boys_bike', 'adults_bike', 'description')
 
 

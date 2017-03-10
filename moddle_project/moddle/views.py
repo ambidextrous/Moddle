@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from moddle.models import User, UserProfile, Bike
-from moddle.forms import UserForm, UserProfileForm
+from moddle.forms import UserForm, UserProfileForm, BikeForm
 # Imported to send lat-long info
 from django.http import JsonResponse
 
@@ -115,7 +115,7 @@ def register(request):
             # Now we hash the password with the set_password method
             # Once hashed, we can update the user object.
             user.set_password(user.password)
-            user.save
+            user.save()
 
             # Now sort out the UserProfile instance
             # Since we need to set the user attribute ourselves,
@@ -130,6 +130,7 @@ def register(request):
             # Update our variable to indicate that the template
             # registration was successful
             registered = True
+            print("User detail: {0}, {1}".format(user, user.password))
         else:
             # Invalid form or forms - mistakes or something else?
             # Print problems to the terminal.
@@ -161,7 +162,11 @@ def search(request):
 @login_required
 def upload_bike(request, username):
     if request.user.is_authenticated and str(request.user.username) == username:
-        print request.user.username
+        print request.user
+
+    owner = UserProfile.objects.get(user=request.user)
+
+    form = BikeForm()
 
     # check page 117 in tango with django to use this for uploading a picture.
     # Did the user provide a profile picture?
@@ -169,8 +174,20 @@ def upload_bike(request, username):
     # put it in the UserProfile model
     #if 'picture' in request.FILES:
     #    profile.picture = request.FILES['picture']
+    if request.method == 'POST':
+        form = BikeForm(request.POST)
 
-    context_dict = {'': ''}
+        if form.is_valid():
+            bike = form.save(commit=False)
+
+            # Retrieve the associated information
+            bike.owner = owner
+            bike.save()
+        else:
+            print form.errors
+
+    context_dict = {'form':form}
+
     return render(request, 'moddle/upload_bike.html', context=context_dict)
 
 def bike_profile(request):
