@@ -16,7 +16,7 @@ def get_user_image_folder(instance, filename):
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     # username = models.CharField(max_length=128, unique=True)
-    #email = models.EmailField(max_length=128)
+    # email = models.EmailField(max_length=128)
 
     # The additional attributes we wish to include
     phone_number = models.CharField(max_length=16, blank=True)
