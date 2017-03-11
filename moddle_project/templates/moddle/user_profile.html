@@ -15,12 +15,12 @@
 <img src="/roughWork/profilePic.jpg" alt="Your profile picture" style="height:228px;">
 
 <h2>Location</h2>
-	
-	<p>Click on the map to select your home location:</p>
+    
+    <p>Click on the map to select your home location:</p>
     <div id="map"></div>
 
-	<script src="{% static "js/locationSelector.js" %}"></script>	
-	<script async defer
+    <script src="{% static "js/locationSelector.js" %}"></script>   
+    <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVZpuFDB4wTBAxpaLPKEtQXIgMvkxUTz8&callback=initMap">
     </script>
 
@@ -38,6 +38,6 @@
         </div>
         {% endfor %}
     {% else %}
-			<strong>This user has no bikes.</strong>
+            <strong>This user has no bikes.</strong>
     {% endif %}
 {% endblock %}

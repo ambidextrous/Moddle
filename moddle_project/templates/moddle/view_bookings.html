@@ -1,0 +1,21 @@
+{% extends 'moddle/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+<h1>My bookings</h1>
+    {% if bookings %}
+        {% for book in bookings %}
+        <div id="bike">
+            <p>Booking ID: {{ book.id }}<br />
+            <a href="{% url 'bike_profile' book.bikeid.id %}" class="btn btn-primary">Bike: {{ book.bikeid }}</button></a><br />
+            <a href="{% url 'user_profile' book.owner.user.username %}" class="btn btn-primary">Owner: {{ book.owner }}</button></a><br />
+            Start date: {{ book.start_date }}<br />
+            Finish date: {{ book.finish_date }}<br />
+            </p>
+        </div>
+        {% endfor %}
+    {% else %}
+			<strong>There's no booking record.</strong>
+    {% endif %}
+{% endblock %}

@@ -3,7 +3,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from moddle.models import User, UserProfile, Bike
+from moddle.models import User, UserProfile, Bike, Booking
 from moddle.forms import UserForm, UserProfileForm, BikeForm, BookingForm
 # Imported to send lat-long info
 from django.http import JsonResponse
@@ -251,12 +251,24 @@ def request_bike(request, bike_id_slug):
     return render(request, 'moddle/request_bike.html', context=context_dict)
 
 @login_required
-def view_bookings(request):
+def view_bookings(request, username):
 
-    owner = UserProfile.objects.get(user=request.user)
+    user = User.objects.get(username=username)
+    borrower = UserProfile.objects.get(user=user)
 
+    try:
+        # Return all the bookings made from the user
+        # If we can't, the .get() method raises a DoesNotExist exception.
+        # So the .get() method returns one model instance or raises an exception.
 
-    context_dict = {'': ''}
+        bookings = Booking.objects.filter(borrower=borrower)
+
+    except Booking.DoesNotExist:
+        # Don't do anything -
+        # the template will display the "no booking" message for us.
+        print "No booking for this user"
+
+    context_dict = {'bookings': bookings}
     return render(request, 'moddle/view_bookings.html', context=context_dict)
 
 def faq(request):
