@@ -7,12 +7,18 @@ import datetime
 import os
 
 # Helper method to
-def get_user_image_folder(instance, filename):
+def get_bike_image_folder(instance, filename):
     if os.name == 'nt':
         return "bikes/%s/%s" % (instance.owner.user.username, filename)
     else:
         return "bikes\%s\%s" % (instance.owner.user.username, filename)
 
+def get_user_image_folder(instance, filename):
+    if os.name == 'nt':
+        return "profile_pictures/%s/%s" % (instance.user.username, filename)
+    else:
+        return "profile_pictures\%s\%s" % (instance.user.username, filename)
+        
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     # username = models.CharField(max_length=128, unique=True)
@@ -24,6 +30,7 @@ class UserProfile(models.Model):
     post_code = models.CharField(max_length=7)
     longitude = models.FloatField(null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
+    profile_picture = models.ImageField(upload_to=get_user_image_folder, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -38,7 +45,7 @@ class Bike(models.Model):
     boys_bike = models.BooleanField(default=False)
     adults_bike = models.BooleanField(default=False)
     description = models.CharField(max_length=512, blank=True)
-    bike_picture = models.ImageField(upload_to=get_user_image_folder, blank=True)
+    bike_picture = models.ImageField(upload_to=get_bike_image_folder, blank=True)
 
     def __str__(self):
         return self.name

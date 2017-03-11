@@ -2,10 +2,11 @@
 {% block body_block %}
 	<h1>Registration Page</h1>
 	{% if registered %}
-		<strong>Thank you for registering!</strong>
+		<strong>Thank you for registering! You can now upload some bikes to share.</strong>
 	{% else %}
-		 <p>Welcome to the register page. Please fill out the form below to regiter your account.</p>
-		<form id="user_form" method="post" action="{% url 'register' %}">
+		<p>Welcome to the register page. Please fill out the form below to register your new account.</p>
+		<form id="user_form" method="post" action="{% url 'register' %}"
+        enctype="multipart/form-data">
 
 			{% csrf_token %}
 

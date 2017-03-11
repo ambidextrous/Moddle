@@ -3,19 +3,20 @@
 
 {% block body_block %}
 
-<h1>My bookings</h1>
+<h1>My Bookings</h1>
     {% if bookings %}
-        {% for book in bookings %}
+        {% for booking in bookings %}
         <div id="bike">
             <p>Booking ID: {{ book.id }}<br />
-            <a href="{% url 'bike_profile' book.bikeid.id %}" class="btn btn-primary">Bike: {{ book.bikeid }}</button></a><br />
-            <a href="{% url 'user_profile' book.owner.user.username %}" class="btn btn-primary">Owner: {{ book.owner }}</button></a><br />
-            Start date: {{ book.start_date }}<br />
-            Finish date: {{ book.finish_date }}<br />
+            <a href="{% url 'bike_profile' booking.bikeid.id %}" class="btn btn-primary">Bike: {{ booking.bikeid }}</button></a><br />
+            <a href="{% url 'user_profile' booking.owner.user.username %}" class="btn btn-primary">Owner: {{ booking.owner }}</button></a><br />
+            Start date: {{ booking.start_date }}<br />
+            Finish date: {{ booking.finish_date }}<br />
             </p>
         </div>
         {% endfor %}
     {% else %}
-			<strong>There's no booking record.</strong>
+			<p><strong>You currently have no bookings on record.</strong></p>
+            <p><a href="{% url 'index' %}">Browse bikes here</a>.</p>
     {% endif %}
 {% endblock %}

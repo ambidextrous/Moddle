@@ -126,6 +126,10 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
 
+            # If user provides a bike picture?
+            if 'profile_picture' in request.FILES:
+                profile.profile_picture = request.FILES.get('profile_picture', None)
+            
             # Now we save the UserProfile model instance
             profile.save()
 

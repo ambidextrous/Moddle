@@ -21,12 +21,12 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('phone_number', 'gender_male', 'post_code')
+        fields = ('phone_number', 'gender_male', 'post_code', 'profile_picture')
 
 class BikeForm(forms.ModelForm):
-	name = forms.CharField(max_length=128, help_text="Please enter the name/title of bike.")
+	name = forms.CharField(max_length=128, help_text="Please enter the name/title of your bike.")
 	boys_bike = forms.BooleanField(help_text="Tick if this is a men's bike, leave unticked for women's:", required=False)
-	adults_bike = forms.BooleanField(help_text="Tick if it's an adults bike:", required=False)
+	adults_bike = forms.BooleanField(help_text="Tick if this is an adult's bike:", required=False)
 	description = forms.CharField(max_length=500, help_text="Please give a short description of your bike:", required=True)
 
 	class Meta:
