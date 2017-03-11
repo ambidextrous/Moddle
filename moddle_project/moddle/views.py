@@ -52,7 +52,6 @@ def user_profile(request, username):
 
     return render(request, 'moddle/user_profile.html', context=context_dict)
 
-
 def user_login(request):
     # If the request is a HTTP POST, try to pull out the relevant information
     if request.method == 'POST':
@@ -171,12 +170,6 @@ def upload_bike(request, username):
 
     form = BikeForm()
 
-    # check page 117 in tango with django to use this for uploading a picture.
-    # Did the user provide a profile picture?
-    # If so, we need to get it from the input form and
-    # put it in the UserProfile model
-    #if 'picture' in request.FILES:
-    #    profile.picture = request.FILES['picture']
     if request.method == 'POST':
         form = BikeForm(request.POST)
 
@@ -188,7 +181,8 @@ def upload_bike(request, username):
 
             # If user provides a bike picture?
             if 'bike_picture' in request.FILES:
-                bike.bike_picture = request.FILES('bike_picture')
+                bike.bike_picture = request.FILES.get('bike_picture', None)
+            
             bike.save()
             return HttpResponseRedirect(reverse('index'))
         else:
