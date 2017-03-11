@@ -231,16 +231,17 @@ def request_bike(request, bike_id_slug):
     form = BookingForm()
 
     if request.method == 'POST':
-        book = BookingForm(request.POST)
+        form = BookingForm(request.POST)
+        print("Booking detail: {0} {1} {2}".format(bike, owner, borrower))
 
         if form.is_valid():
-            form.save(commit=False)
+            book = form.save(commit=False)
 
             # Retreive the booking information
             book.owner = owner
             book.borrower = borrower
             book.bikeid = bike
-            bike.save()
+            book.save()
             print("Booking detail: {0}".format(book.id))
             return HttpResponseRedirect(reverse('index'))
         else:

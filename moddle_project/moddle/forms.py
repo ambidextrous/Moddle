@@ -35,8 +35,8 @@ class BikeForm(forms.ModelForm):
 		fields = ('name', 'boys_bike', 'adults_bike', 'description', 'bike_picture')
 
 class BookingForm(forms.ModelForm):
-    start_date = forms.DateField(help_text="Starting date")
-    finish_date = forms.DateField(help_text="Ending date")
+    start_date = forms.DateField(help_text="Starting date (suggest form: Y-m-d)")
+    finish_date = forms.DateField(help_text="Ending date (suggest form: Y-m-d)")
 
     class Meta:
         model = Booking

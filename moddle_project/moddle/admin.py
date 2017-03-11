@@ -1,5 +1,5 @@
 from django.contrib import admin
-from moddle.models import UserProfile, Bike
+from moddle.models import UserProfile, Bike, Booking
 #from moddle.models import Booking
 
 def user_username(self):
@@ -11,6 +11,10 @@ class UserProfileAdmin(admin.ModelAdmin):
 class BikeAdmin(admin.ModelAdmin):
     list_display = ('name', 'owner')
 
+# class BookingAdmin(admin.ModelAdmin):
+#     list_display = ('owner', 'borrower')
+
 # Register your models here.
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Bike, BikeAdmin)
+admin.site.register(Booking)

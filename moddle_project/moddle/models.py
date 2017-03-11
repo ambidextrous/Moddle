@@ -53,5 +53,9 @@ class Booking(models.Model):
     borrower = models.ForeignKey(UserProfile, related_name='borrower')
     bikeid = models.ForeignKey(Bike)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.id
+
+    def __unicode__(self):
+        return self.borrower.__str__()
+        
