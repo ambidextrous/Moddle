@@ -28,6 +28,9 @@ def user_profile(request, username):
     # Create a context dictionary which we can pass to the template rendering engine
     context_dict = {}
 
+    context_dict['latitude'] = UserProfile.latitude
+    context_dict['longitude'] = UserProfile.longitude
+	
     try:
         # Can we find a category name slug with the given name?
         # If we can't, the .get() method raises a DoesNotExist exception.
@@ -287,8 +290,10 @@ def storelatlong(request):
     context_dict = {'': ''}
     lat = float(request.GET.get('lat', ''))
     lng = float(request.GET.get('lng', ''))
-    # print "lat = "+lat
-    # print "lng = "+lng
-    # resp_data = {'lat': lat, 'lng': lng}
-    # return JsonResponse(resp_data)
+    print "User-entered lat value = "+str(lat)
+    print "User-enetered lng value = "+str(lng)
+    UserProfile.latitude = lat
+    UserProfile.longitude = lng
+    print "UserProfile.latitude = "+str(UserProfile.latitude)
+    print "UserProfile.longitude = "+str(UserProfile.longitude)
     return HttpResponse("OK")

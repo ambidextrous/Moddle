@@ -19,6 +19,10 @@
     <p>Click on the map to select your home location:</p>
     <div id="map"></div>
 
+	<p>latitude = {{ latitude }}</p>
+	<p hidden value="{{ latitude }}" id=userLat>{{ latitude }}</p>
+	<p>longitude = {{ longitude }}</p>
+	<p hidden value="{{ longitude }}" id=userLong>{{ longitude }}</p>
     <script src="{% static "js/locationSelector.js" %}"></script>   
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVZpuFDB4wTBAxpaLPKEtQXIgMvkxUTz8&callback=initMap">

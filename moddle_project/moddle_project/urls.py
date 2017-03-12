@@ -30,13 +30,13 @@ urlpatterns = [
     url(r'^search/$', views.search, name='search'),
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),
-    url(r'^logout/$', views.user_logout, name='logout'),
+    url(r'^logout/$', views.user_logout, name='logout'),	
+    # url for transmitting user lat-long info to database
+    url(r'^storelatlong/$', views.storelatlong, name='storelatlong'),	
     url(r'^$', views.index, name='index'),
     url(r'^(?P<username>[\w\-]+)/$', views.user_profile, name='user_profile'),
     url(r'^(?P<username>[\w\-]+)/mybookings/$', views.view_bookings, name='view_bookings'),
     url(r'^(?P<username>[\w\-]+)/addbike/$', views.upload_bike, name='upload_bike'),
     url(r'^bike/(?P<bike_id_slug>[\w\-]+)/$', views.bike_profile, name='bike_profile'),
     url(r'^(?P<bike_id_slug>[\w\-]+)/request/$', views.request_bike, name='request_bike'),
-	# url for transmitting user lat-long info to database
-	url(r'^storelatlong/$', views.storelatlong, name='storelatlong'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

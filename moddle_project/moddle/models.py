@@ -28,8 +28,8 @@ class UserProfile(models.Model):
     phone_number = models.CharField(max_length=16, blank=True)
     gender_male = models.BooleanField()
     post_code = models.CharField(max_length=7)
-    longitude = models.FloatField(null=True, blank=True)
-    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True, default=-4.2924705147743225)
+    latitude = models.FloatField(null=True, blank=True, default=55.87371280304047)
     profile_picture = models.ImageField(upload_to=get_user_image_folder, blank=True)
 
     def __str__(self):
