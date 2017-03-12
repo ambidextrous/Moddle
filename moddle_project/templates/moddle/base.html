@@ -24,21 +24,21 @@
 
 	<blockquote>"It is a truth universally acknowledged, that a tourist in a foreign city in possession of a good fortune, must be in want of a bicycle." &mdash; Jane Austen</blockquote>
 
-	<input type="text" name="searchbox" placeholder="Search...">
+	<!-- <input type="text" name="searchbox" placeholder="Search..."> -->
 
 		<ul class="topnav" id="myTopnav">
 
-			<li><a href="{% url 'index' %}">Home</a></li>			
+			<li><a href="{% url 'index' %}">Book a Bike</a></li>			
 			<li><a href="{% url 'about' %}">About</a></li>
 			<li><a href="{% url 'contact_us' %}">Contact</a></li>
 			<li><a href="{% url 'faq' %}">FAQs</a></li>
-			<li><a href="{% url 'search' %}">Search</a></li>	
+			<!-- <li><a href="{% url 'search' %}">Search</a></li> -->	
 			
 			{% if user.is_authenticated %}
 			
 				<li><a href="{% url 'user_profile' request.user.username %}">My Profile</a></li>
 				<li><a href="{% url 'upload_bike' request.user.username %}">Add Bike</a></li>
-				<li><a href="{% url 'view_bookings' request.user.username %}">View My booking</a></li>
+				<li><a href="{% url 'view_bookings' request.user.username %}">View My bookings</a></li>
 				<li><a href="{% url 'logout' %}?next=/" %}">Log out</a></li>
 				
 			{% else %}

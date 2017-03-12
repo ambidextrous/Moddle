@@ -18,8 +18,9 @@
                 <a href="{% url 'bike_profile' bike.id %}">{{ bike.name }}</a><br />
                 {{ bike.description }}
             </p>
-            <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/>
-
+			<p>
+				<img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/>
+			</p>
         </div>
         {% endfor %}
     {% else %}

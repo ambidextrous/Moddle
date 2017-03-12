@@ -7,7 +7,9 @@
         <p>{{ bike.description }}</p><br />
         <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/><br />
 		{% if user.is_authenticated %}
+		<p>
 		<a href="{% url 'request_bike' bike.id %}" class="btn btn-primary">Book this bike</button>
+		</p>
 		{% endif %}
 
 {% endblock %}
