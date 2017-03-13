@@ -21,7 +21,6 @@
 	<h1>Moddle</h1>
 	<h2>The Bike Sharing Website</h2>
 
-
 	<blockquote>"It is a truth universally acknowledged, that a tourist in a foreign city in possession of a good fortune, must be in want of a bicycle." &mdash; Jane Austen</blockquote>
 
 	<!-- <input type="text" name="searchbox" placeholder="Search..."> -->
@@ -35,7 +34,7 @@
 			<!-- <li><a href="{% url 'search' %}">Search</a></li> -->	
 			
 			{% if user.is_authenticated %}
-			
+
 				<li><a href="{% url 'user_profile' request.user.username %}">My Profile</a></li>
 				<li><a href="{% url 'upload_bike' request.user.username %}">Add Bike</a></li>
 				<li><a href="{% url 'view_bookings' request.user.username %}">View My bookings</a></li>
@@ -52,11 +51,8 @@
 </head>
 
 <body>
-
-	<div>
-		{% block body_block %}
-		{% endblock %}
-	</div>
+	{% block body_block %}
+	{% endblock %}
 	
 </body>
 

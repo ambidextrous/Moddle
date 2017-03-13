@@ -2,9 +2,8 @@ function initMap() {
 	
 	var userLat = parseFloat(document.getElementById("userLat").innerHTML);
 	var userLong = parseFloat(document.getElementById("userLong").innerHTML);
-	
 	if (isNaN(userLat) || isNaN(userLong)) {
-		// The Boyde Orr: centre of the known universe
+		// The Boyd Orr: centre of the known universe
 		var myLatlng = {lat: 55.87371280304047, lng: -4.2924705147743225};
 	} else {
 		var myLatlng = {lat: userLat, lng: userLong};
@@ -103,5 +102,3 @@ function deleteMarkers(map,markers) {
 	clearMarkers(map,markers);
 	markers = [];
 }
-
-			

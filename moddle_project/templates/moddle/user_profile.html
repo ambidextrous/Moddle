@@ -3,7 +3,7 @@
 
 {% block body_block %}
 
-{% if user.is_authenticated %}
+{% if request.user == userprofile.user and user.is_authenticated %}
     <h1>Welcome back {{ userprofile.user.first_name }}!</h1>
 {% else %}
     <h1>{{ userprofile.user.first_name }}, {{ userprofile.user.last_name }}'s profile.</h1>
@@ -15,19 +15,22 @@
 <img src="{{ MEDIA_URL }}{{ userprofile.profile_picture }}" alt="Your profile picture" style="height:228px;">
 
 <h2>Location</h2>
-    
-    <p>Click on the map to select your home location:</p>
+
+	<p hidden id=userLat>{{ userprofile.latitude }}</p>
+	<p hidden id=userLong>{{ userprofile.longitude }}</p>
+
+    {% if request.user == userprofile.user and user.is_authenticated %}
+        <p>Click on the map above to select your home location.</p>
+		<script src='{% static "js/locationSelector.js" %}'></script>
+    {% else %}
+        <p>{{ userprofile.user.first_name }}'s home location:</p>
+		<script src='{% static "js/otherUserMapDisplay.js" %}'></script>
+    {% endif %}
+
     <div id="map"></div>
-
-	<p>latitude = {{ latitude }}</p>
-	<p hidden value="{{ latitude }}" id=userLat>{{ latitude }}</p>
-	<p>longitude = {{ longitude }}</p>
-	<p hidden value="{{ longitude }}" id=userLong>{{ longitude }}</p>
-    <script src="{% static "js/locationSelector.js" %}"></script>   
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVZpuFDB4wTBAxpaLPKEtQXIgMvkxUTz8&callback=initMap">
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVZpuFDB4wTBAxpaLPKEtQXIgMvkxUTz8&callback=initMap">
     </script>
-
 
 <h2>My Bikes</h2>
     {% if bikes %}
@@ -38,10 +41,9 @@
                 {{ bike.description }}
             </p>
             <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/>
-
         </div>
         {% endfor %}
     {% else %}
-            <strong>This user has no bikes.</strong>
+        <p><strong>This user has no bikes.</strong></p>
     {% endif %}
 {% endblock %}

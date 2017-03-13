@@ -28,8 +28,7 @@ def user_profile(request, username):
     # Create a context dictionary which we can pass to the template rendering engine
     context_dict = {}
 
-    context_dict['latitude'] = UserProfile.latitude
-    context_dict['longitude'] = UserProfile.longitude
+    
 	
     try:
         # Can we find a category name slug with the given name?
@@ -39,6 +38,9 @@ def user_profile(request, username):
         user = User.objects.get(username=username)
         userprofile = UserProfile.objects.get(user=user)
         context_dict['userprofile'] = userprofile
+
+        #context_dict['latitude'] = UserProfile.latitude
+        #context_dict['longitude'] = UserProfile.longitude
 
         # Retrieve all of the associated bikes.
         # Note that filter() will return a list of bike objects or an empty list
@@ -292,8 +294,10 @@ def storelatlong(request):
     lng = float(request.GET.get('lng', ''))
     print "User-entered lat value = "+str(lat)
     print "User-enetered lng value = "+str(lng)
-    UserProfile.latitude = lat
-    UserProfile.longitude = lng
+    profile = request.user.userprofile
+    profile.latitude = lat
+    profile.longitude = lng
+    profile.save()
     print "UserProfile.latitude = "+str(UserProfile.latitude)
     print "UserProfile.longitude = "+str(UserProfile.longitude)
     return HttpResponse("OK")
