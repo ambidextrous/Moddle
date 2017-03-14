@@ -10,7 +10,7 @@
 {% endif %}
 
 <h2>About me</h2>
-<p>I like bikes.</p>
+<p>{{ userprofile.about_me }}</p>
 
 <img src="{{ MEDIA_URL }}{{ userprofile.profile_picture }}" alt="Your profile picture" style="height:228px;">
 
@@ -20,7 +20,7 @@
 	<p hidden id=userLong>{{ userprofile.longitude }}</p>
 
     {% if request.user == userprofile.user and user.is_authenticated %}
-        <p>Click on the map above to select your home location.</p>
+        <p>Click on the below map to select your home location.</p>
 		<p>(This will also be the registered location for your bikes.)</p>
 		<script src='{% static "js/locationSelector.js" %}'></script>
     {% else %}
@@ -37,11 +37,20 @@
     {% if bikes %}
         {% for bike in bikes %}
         <div id="bike">
-            <p>
-                {{ bike.name }}<br />
+            
+			<p>
+				<a href="{% url 'bike_profile' bike.id %}">{{ bike.name }}</a>
+			</p>
+			
+			<p>
                 {{ bike.description }}
             </p>
             <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/>
+			
+			
+			
+			
+			
         </div>
         {% endfor %}
     {% else %}
