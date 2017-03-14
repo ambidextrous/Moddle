@@ -23,11 +23,12 @@ def index(request):
 
     if request.method == 'GET':
         try:
-            bike_gender = request.GET.get('bike_gender')
-            bike_age = request.GET.get('bike_age')
-            category = request.GET.get('category')
-            bike_list = Bike.objects.filter(bike_gender=bike_gender, bike_age=bike_age, category=category)
-            if not bike_list:
+            if request.GET.get('submit')=='search':
+                bike_gender = request.GET.get('bike_gender')
+                bike_age = request.GET.get('bike_age')
+                category = request.GET.get('category')
+                bike_list = Bike.objects.filter(bike_gender=bike_gender, bike_age=bike_age, category=category)
+            else:
                 bike_list = Bike.objects.order_by()
         except Bike.DoesNotExist:
             print 'Cannot find'
