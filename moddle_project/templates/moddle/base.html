@@ -23,15 +23,12 @@
 
 	<blockquote>"It is a truth universally acknowledged, that a tourist in a foreign city in possession of a good fortune, must be in want of a bicycle." &mdash; Jane Austen</blockquote>
 
-	<!-- <input type="text" name="searchbox" placeholder="Search..."> -->
-
 		<ul class="topnav" id="myTopnav">
 
 			<li><a href="{% url 'index' %}">Book a Bike</a></li>			
 			<li><a href="{% url 'about' %}">About</a></li>
 			<li><a href="{% url 'contact_us' %}">Contact</a></li>
 			<li><a href="{% url 'faq' %}">FAQs</a></li>
-			<!-- <li><a href="{% url 'search' %}">Search</a></li> -->	
 			
 			{% if user.is_authenticated %}
 
