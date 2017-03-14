@@ -20,7 +20,17 @@ def get_user_object(request):
 def index(request):
     # Request the context of the request
     # The context contains information of all available bikes
-    bike_list = Bike.objects.order_by()
+    filter_category = request.GET.getlist('category')
+    bike_list = []
+    if filter_category:
+        for cat in filter_category:
+            if cat=='boys':
+                bike_list = Bike.objects.filter(boys_bike=True)
+            if cat=='adults':
+                temp = Bike.objects.filter(adults_bike=True)
+                bike_list += temp
+    else:
+        bike_list = Bike.objects.order_by()
     context_dict = {'bikes':bike_list}
     return render(request, 'moddle/index.html', context=context_dict)
 
