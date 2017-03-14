@@ -12,10 +12,34 @@
 {% endif %}
 
 <h2>Available Bikes</h2>
-    <form action="{% url 'index' %}">
-        <input type="checkbox" name="category" value="all" > all 
-        <input type="checkbox" name="category" value="boys"> boys
-        <input type="checkbox" name="category" value="adults"> adults
+    <form id="search" action="{% url 'index' %}">
+        <select name="bike_gender">
+        <option value="0" selected>(please select: )</option>
+        <option value="Mens">Mens</option>
+        <option value="Womens">Womens</option>
+        <option value="Other">Other</option>
+        </select>
+        <br />
+        <select name="bike_age">
+        <option value="0" selected>(please select: )</option>
+        <option value="Adults">Adults</option>
+        <option value="Teens">Teens</option>
+        <option value="Childs">Childs</option>
+        </select>
+        <br/ >
+        <select name="category">
+        <option value="0" selected>(please select: )</option>
+        <option value="Mountainbike">Mountainbike</option>
+        <option value="Cross Country">Cross Country</option>
+        <option value="Road Bike">Road Bike</option>
+        <option value="City bike">City Bike</option>
+        <option value="Electric Bike">Electric Bike</option>
+        <option value="Unicycle">Unicycle</option>
+        <option value="Tricycle">Tricycle</option>
+        <option value="BMX">BMX</option>
+        <option value="other">other</option>
+        </select>
+        <br />
         <input type="submit" value="Search">
     </form>
     {% if bikes %}

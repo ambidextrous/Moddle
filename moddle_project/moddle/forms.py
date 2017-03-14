@@ -58,3 +58,5 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ('start_date', 'finish_date')
+
+
