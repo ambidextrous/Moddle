@@ -4,6 +4,15 @@
 {% block body_block %}
 
 <h1>{{ bike.name }}</h1>
+
+    <div id="map"></div>
+
+		<script async defer
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVZpuFDB4wTBAxpaLPKEtQXIgMvkxUTz8&callback=initMap">
+		</script>	
+
+		<script src='{% static "js/otherUserMapDisplay.js" %}'></script>		
+
         <p>{{ bike.description }}</p><br />
         <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/><br />
 		{% if user.is_authenticated %}
@@ -12,4 +21,14 @@
 		</p>
 		{% endif %}
 
+	
+		
+		<p  id=userLat>{{ bike.owner.latitude }}</p>
+		<p  id=userLong>{{ bike.owner.longitude }}</p>		
+	
+		<p><a href="{% url 'user_profile' bike.owner.user.username %}">Owner profile</a></p>
+
+
+
+		
 {% endblock %}

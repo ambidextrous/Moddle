@@ -58,6 +58,8 @@ def user_profile(request, username):
     return render(request, 'moddle/user_profile.html', context=context_dict)
 
 def user_login(request):
+    if request.user.is_authenticated: 
+	    return HttpResponseRedirect(reverse('index'))
     # If the request is a HTTP POST, try to pull out the relevant information
     if request.method == 'POST':
         # Gather the username and password provided by the user.
@@ -212,7 +214,7 @@ def bike_profile(request, bike_id_slug):
         # So the .get() method returns one model instance or raises an exception.
 
         bike = Bike.objects.get(id=bike_id_slug)
-
+		
         context_dict['bike'] = bike
 
     except Bike.DoesNotExist:

@@ -21,6 +21,7 @@
 
     {% if request.user == userprofile.user and user.is_authenticated %}
         <p>Click on the map above to select your home location.</p>
+		<p>(This will also be the registered location for your bikes.)</p>
 		<script src='{% static "js/locationSelector.js" %}'></script>
     {% else %}
         <p>{{ userprofile.user.first_name }}'s home location:</p>
