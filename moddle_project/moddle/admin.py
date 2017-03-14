@@ -5,8 +5,14 @@ from moddle.models import UserProfile, Bike, Booking
 def user_username(self):
     return self.user.username
 
+def first_name(self):
+    return self.user.first_name
+    
+def last_name(self):
+    return self.user.last_name
+
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = (user_username, 'post_code')
+    list_display = (user_username, first_name, last_name)
 
 class BikeAdmin(admin.ModelAdmin):
     list_display = ('name', 'owner')

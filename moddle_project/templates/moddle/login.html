@@ -9,10 +9,10 @@
 <h1>Login to Moddle</h1>
 <form id="login_form" method="post" action="{% url 'login' %}">
 	{% csrf_token %}
-	Username: <input type="text" name="username" value="" size="50" />
+	<p>Username: <input type="text" name="username" value="" size="50" /></p>
 	<br />
-	Password: <input type="password" name="password" value="" size="50" />
+	<p>Password: <input type="password" name="password" value="" size="50" /></p>
 	<br />
-	<input type="submit" value="submit" />
+	<p><input type="submit" value="submit" /></p>
 </form>
 {% endblock %}
