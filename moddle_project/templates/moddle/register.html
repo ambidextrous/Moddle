@@ -4,7 +4,7 @@
 {% block body_block %}
 	<h1>Registration Page</h1>
 	{% if registered %}
-		<strong>Thank you for registering! You can now upload some bikes to share.</strong>
+		<strong>Thank you for registering! You can now <a href="{% url 'login' %}">login</a> to upload some bikes to share.</strong>
 	{% else %}
 		<p>Welcome to the register page. Please fill out the form below to register your new account.</p>
 		<form id="user_form" method="post" action="{% url 'register' %}"
@@ -22,7 +22,7 @@
 			{{ profile_form.as_p}}
 
 			<!-- Provide a button to click to submit the form. -->
-			<input type="submit" name="submit" value="Create Account" />
+			<p><input type="submit" name="submit" value="Create Account" /></p>
 		</form>
 
 	<script src='{% static "js/registrationMapSelector.js" %}'></script>

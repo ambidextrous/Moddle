@@ -111,6 +111,8 @@ def user_login(request):
         return render(request, 'moddle/login.html', {})
 
 def register(request):
+    if request.user.is_authenticated: 
+        return HttpResponseRedirect(reverse('index'))
     # A boolean value for telling the template
     # whether the registration was successful.
     # Set to False initially. Code changes value to
