@@ -21,12 +21,11 @@ def get_user_image_folder(instance, filename):
         
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    # username = models.CharField(max_length=128, unique=True)
-    # email = models.EmailField(max_length=128)
 
     # The additional attributes we wish to include
+    about_me = models.CharField(max_length=512, blank=True)
     phone_number = models.CharField(max_length=16, blank=True)
-    gender_male = models.BooleanField()
+    gender = models.CharField(max_length=16)
     post_code = models.CharField(max_length=7)
     longitude = models.FloatField(null=True, blank=True, default=-4.2924705147743225)
     latitude = models.FloatField(null=True, blank=True, default=55.87371280304047)
@@ -39,11 +38,11 @@ class UserProfile(models.Model):
         return self.user.username
 
 class Bike(models.Model):
-    #id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128)
     owner = models.ForeignKey(UserProfile)
-    boys_bike = models.BooleanField(default=False)
-    adults_bike = models.BooleanField(default=False)
+    category = models.CharField(max_length=20)
+    bike_gender = models.CharField(max_length=16)
+    bike_age = models.CharField(max_length=16)
     description = models.CharField(max_length=512, blank=True)
     bike_picture = models.ImageField(upload_to=get_bike_image_folder, blank=True)
 

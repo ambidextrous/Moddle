@@ -4,6 +4,7 @@ __pycache__/
 
 # thumbs files
 *Thumbs.db
+**Thumbs.db
 
 # pycharm
 *.idea
