@@ -6,7 +6,7 @@
 {% if request.user == userprofile.user and user.is_authenticated %}
     <h1>Welcome back {{ userprofile.user.first_name }}!</h1>
 {% else %}
-    <h1>{{ userprofile.user.first_name }}, {{ userprofile.user.last_name }}'s profile.</h1>
+    <h1>{{ userprofile.user.first_name }} {{ userprofile.user.last_name }}'s profile.</h1>
 {% endif %}
 
 <h2>About me</h2>

@@ -1,4 +1,6 @@
 {% extends 'moddle/base.html' %}
+{% load staticfiles %}
+
 {% block body_block %}
 	<h1>Registration Page</h1>
 	{% if registered %}
@@ -12,10 +14,20 @@
 
 			<!-- Display each form element in a <p> tag -->
 			{{ user_form.as_p }}
+			<p>Click on the map below to select your home location.</p>
+			<p>(this will also be the registered location for your bikes).</p>
+			<div id="map"></div>
+			<input type="hidden" id="userLat" name="userLat" value="" />
+			<input type="hidden" id="userLong" name="userLong" value="" />
 			{{ profile_form.as_p}}
 
 			<!-- Provide a button to click to submit the form. -->
-			<input type="submit" name="submit" value="Register" />
+			<input type="submit" name="submit" value="Create Account" />
 		</form>
+
+	<script src='{% static "js/registrationMapSelector.js" %}'></script>
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVZpuFDB4wTBAxpaLPKEtQXIgMvkxUTz8&callback=initMap">
+	</script>
 	{% endif %}
 {% endblock %}

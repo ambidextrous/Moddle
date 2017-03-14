@@ -20,17 +20,17 @@ def get_user_object(request):
 def index(request):
     # Request the context of the request
     # The context contains information of all available bikes
-    filter_category = request.GET.getlist('category')
-    bike_list = []
-    if filter_category:
-        for cat in filter_category:
-            if cat=='boys':
-                bike_list = Bike.objects.filter(boys_bike=True)
-            if cat=='adults':
-                temp = Bike.objects.filter(adults_bike=True)
-                bike_list += temp
-    else:
-        bike_list = Bike.objects.order_by()
+
+    if request.method == 'GET':
+        try:
+            bike_gender = request.GET.get('bike_gender')
+            bike_age = request.GET.get('bike_age')
+            category = request.GET.get('category')
+            bike_list = Bike.objects.filter(bike_gender=bike_gender, bike_age=bike_age, category=category)
+            if not bike_list:
+                bike_list = Bike.objects.order_by()
+        except Bike.DoesNotExist:
+            print 'Cannot find'
     context_dict = {'bikes':bike_list}
     return render(request, 'moddle/index.html', context=context_dict)
 
@@ -38,8 +38,6 @@ def user_profile(request, username):
     # Create a context dictionary which we can pass to the template rendering engine
     context_dict = {}
 
-    
-	
     try:
         # Can we find a category name slug with the given name?
         # If we can't, the .get() method raises a DoesNotExist exception.
@@ -69,7 +67,7 @@ def user_profile(request, username):
 
 def user_login(request):
     if request.user.is_authenticated: 
-	    return HttpResponseRedirect(reverse('index'))
+        return HttpResponseRedirect(reverse('index'))
     # If the request is a HTTP POST, try to pull out the relevant information
     if request.method == 'POST':
         # Gather the username and password provided by the user.
@@ -140,8 +138,18 @@ def register(request):
             # Since we need to set the user attribute ourselves,
             # we set commit=False. This delays saving the model
             # until we're ready to avoid integrity problems
+            
+
+
             profile = profile_form.save(commit=False)
             profile.user = user
+
+            try:
+                profile.latitude = float(request.POST.get('userLat'))
+                profile.longitude = float(request.POST.get('userLong'))
+            except ValueError:
+                profile.latitude = 55.87371280304047 
+                profile.longitude = -4.2924705147743225
 
             # If user provides a bike picture?
             if 'profile_picture' in request.FILES:
