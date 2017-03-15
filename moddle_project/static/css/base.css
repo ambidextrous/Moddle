@@ -16,13 +16,7 @@ li:last-child {
 	border-right: none;
 }
 
-h1 {
-    font-family: 'Poiret One', cursive, Arial, Helvetica, sans-serif;
-	color: #4F5D73;
-	text-align: center;
-}
-
-h2 {
+h1, h2, h3, h4, h5, h6 {
     font-family: 'Poiret One', cursive, Arial, Helvetica, sans-serif;
 	color: #4F5D73;
 	text-align: center;

@@ -21,18 +21,43 @@ def index(request):
     # Request the context of the request
     # The context contains information of all available bikes
 
-    if request.method == 'GET':
+    context_dict = {}
+
+    if request.method == 'GET' and request.META['QUERY_STRING']:
+ 
         try:
-            if request.GET.get('submit')=='search':
-                bike_gender = request.GET.get('bike_gender')
-                bike_age = request.GET.get('bike_age')
-                category = request.GET.get('category')
-                bike_list = Bike.objects.filter(bike_gender=bike_gender, bike_age=bike_age, category=category)
+            bike_list = Bike.objects.all()
+            query_set = []
+
+            bike_gender = request.GET.get('bike_gender')
+            if bike_gender != '0':
+                query_set.append(bike_gender)
+                bike_list = bike_list.filter(bike_gender=bike_gender)
+
+            bike_age = request.GET.get('bike_age')
+            if bike_age != '0':
+                query_set.append(bike_age)
+                bike_list = bike_list.filter(bike_age=bike_age)
+
+            category = request.GET.get('category')
+            if category != '0':
+                query_set.append(category)
+                bike_list = bike_list.filter(category=category)
+
+            #bike_list = Bike.objects.filter(bike_gender=bike_gender, bike_age=bike_age, category=category)
+            #if not bike_list:
+            #   bike_list = Bike.objects.order_by()
+            context_dict['bikes'] = bike_list
+            if len(query_set) == 0:
+                context_dict['query_set'] = None
             else:
-                bike_list = Bike.objects.order_by()
+                context_dict['query_set'] = query_set
+
         except Bike.DoesNotExist:
             print 'Cannot find'
-    context_dict = {'bikes':bike_list}
+
+    else:
+        context_dict['bikes'] = Bike.objects.all()
     return render(request, 'moddle/index.html', context=context_dict)
 
 def user_profile(request, username):
@@ -182,7 +207,7 @@ def register(request):
                    'profile_form': profile_form,
                    'registered': registered})
 
-@login_required	
+@login_required
 def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
     logout(request)
@@ -235,7 +260,7 @@ def bike_profile(request, bike_id_slug):
         # So the .get() method returns one model instance or raises an exception.
 
         bike = Bike.objects.get(id=bike_id_slug)
-		
+
         context_dict['bike'] = bike
 
     except Bike.DoesNotExist:
@@ -309,13 +334,18 @@ def about(request):
     context_dict = {'': ''}
     return render(request, 'moddle/about.html', context=context_dict)
 
-@login_required	
+@login_required
 def storelatlong(request):
+    print "Got here!"
     context_dict = {'': ''}
     lat = float(request.GET.get('lat', ''))
     lng = float(request.GET.get('lng', ''))
+    print "User-entered lat value = "+str(lat)
+    print "User-enetered lng value = "+str(lng)
     profile = request.user.userprofile
     profile.latitude = lat
     profile.longitude = lng
     profile.save()
+    print "UserProfile.latitude = "+str(UserProfile.latitude)
+    print "UserProfile.longitude = "+str(UserProfile.longitude)
     return HttpResponse("OK")

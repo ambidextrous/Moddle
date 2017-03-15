@@ -20,13 +20,13 @@
         <option value="Other">Other</option>
         </select>
         <select name="bike_age">
-        <option value="0" selected>age</option>
+        <option value="0" selected>Age</option>
         <option value="Adults">Adults</option>
         <option value="Teens">Teens</option>
         <option value="Childs">Childs</option>
         </select>
         <select name="category">
-        <option value="0" selected>category</option>
+        <option value="0" selected>Category</option>
         <option value="Mountainbike">Mountainbike</option>
         <option value="Cross Country">Cross Country</option>
         <option value="Road Bike">Road Bike</option>
@@ -40,8 +40,16 @@
         <input type="submit" name="submit" value="search">
     </form>
     </h2>
-
+    {% if query_set %}
+	<h3>Your search queries:</h3>
+	<p>- 
+	{% for query in query_set %}
+		{{ query }} -
+	{% endfor %}
+	</p>
+    {% endif %}
 <h2>Available Bikes</h2>
+
     {% if bikes %}
         {% for bike in bikes %}
         <div id="bike">
