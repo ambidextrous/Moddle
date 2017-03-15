@@ -9,7 +9,9 @@
 {% else %}
     <h1>Welcome cyclist!</h1>
     <h2><a href="{% url 'register' %}">Register here</a> to request one of the beautiful bikes below.</h2>
-    <h2>Or start here for Quick search.
+{% endif %}
+
+    <h2>Start here for Quick search.
     <form id="search" action="{% url 'index' %}">
         <select name="bike_gender">
         <option value="0" selected>Gender</option>
@@ -38,7 +40,6 @@
         <input type="submit" name="submit" value="search">
     </form>
     </h2>
-{% endif %}
 
 <h2>Available Bikes</h2>
     {% if bikes %}
