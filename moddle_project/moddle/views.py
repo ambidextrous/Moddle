@@ -44,9 +44,6 @@ def index(request):
                 query_set.append(category)
                 bike_list = bike_list.filter(category=category)
 
-            #bike_list = Bike.objects.filter(bike_gender=bike_gender, bike_age=bike_age, category=category)
-            #if not bike_list:
-            #   bike_list = Bike.objects.order_by()
             context_dict['bikes'] = bike_list
             if len(query_set) == 0:
                 context_dict['query_set'] = None
