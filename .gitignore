@@ -1,4 +1,6 @@
 #ignore all images except the stock images
+moddle_project/media/*
+
 moddle_project/media/bikes/*
 !moddle_project/media/bikes/biancaBikeLover/
 !moddle_project/media/bikes/boringSteve/
