@@ -43,6 +43,7 @@ class BikeForm(forms.ModelForm):
     bike_age = forms.ChoiceField(help_text="Suitable age: ", choices=bike_ages)
     categories = [('Mountainbike', 'Mountainbike'), ('Cross Country','Cross Country'), ('Road Bike','Road Bike'), ('City Bike','City Bike'), ('Electric Bike','Electric Bike'), ('Unicycle','Unicycle'), ('Tricycle','Tricycle'), ('BMX','BMX'), ('Other','Other')]
     category = forms.ChoiceField(help_text="Type of bike: ", choices=categories)
+    price_per_day = forms.FloatField(help_text="Enter a price per day to rent your bike (in pounds sterling): ")
 
     description = forms.CharField(widget=forms.Textarea, max_length=512, help_text="Please give a short description of your bike: ", required=True)
 

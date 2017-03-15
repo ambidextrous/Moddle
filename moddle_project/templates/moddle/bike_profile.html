@@ -11,7 +11,9 @@
 	
 	</div>
 
-        <p>{{ bike.description }}</p><br />
+		<br />
+        <p>{{ bike.description }}</p>
+		<p>Price per day: &#163;{{ bike.price_per_day }}</p>
         <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/><br />
 			
 		<script async defer

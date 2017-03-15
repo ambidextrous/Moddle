@@ -54,9 +54,14 @@
         {% for bike in bikes %}
         <div id="bike">
             <p>
-                <a href="{% url 'bike_profile' bike.id %}">{{ bike.name }}</a><br />
-                {{ bike.description }}
+                <a href="{% url 'bike_profile' bike.id %}">{{ bike.name }}</a>
+                
             </p>
+			
+			<p>{{ bike.description }}</p>
+			
+			<p>Price per day: &#163;{{ bike.price_per_day }}</p>
+			
 			<p>
 				<img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/>
 			</p>

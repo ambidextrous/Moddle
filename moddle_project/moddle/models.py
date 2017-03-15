@@ -45,6 +45,7 @@ class Bike(models.Model):
     bike_age = models.CharField(max_length=16)
     description = models.CharField(max_length=512, blank=True)
     bike_picture = models.ImageField(upload_to=get_bike_image_folder, blank=True)
+    price_per_day = models.FloatField(null=True, blank=True, default=0.0)
 
     def __str__(self):
         return self.name
