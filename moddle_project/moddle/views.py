@@ -237,6 +237,8 @@ def upload_bike(request, username):
             if 'bike_picture' in request.FILES:
                 bike.bike_picture = request.FILES.get('bike_picture', None)
             
+            bike.price_per_day = round(float(request.POST.get('price_per_day')),2)	
+            
             bike.save()
             return HttpResponseRedirect(reverse('index'))
         else:
