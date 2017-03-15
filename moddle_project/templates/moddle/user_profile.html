@@ -11,6 +11,8 @@
 
 <h2>About me</h2>
 <p>{{ userprofile.about_me }}</p>
+<p>tel: {{ userprofile.phone_number }}</p>
+<p>email: {{ userprofile.user.email }}</p>
 
 <img src="{{ MEDIA_URL }}{{ userprofile.profile_picture }}" alt="Your profile picture" style="height:228px;">
 
