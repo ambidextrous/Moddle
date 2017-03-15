@@ -1,3 +1,16 @@
+#ignore all images except the stock images
+moddle_project/media/bikes/*
+!moddle_project/media/bikes/biancaBikeLover/
+!moddle_project/media/bikes/boringSteve/
+!moddle_project/media/bikes/sarahGLA/
+!moddle_project/media/bikes/therealScarlett/
+
+moddle_project/media/profile_pictures/*
+!moddle_project/media/profile_pictures/biancaBikeLover/
+!moddle_project/media/profile_pictures/boringSteve/
+!moddle_project/media/profile_pictures/sarahGLA/
+!moddle_project/media/profile_pictures/therealScarlett/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
