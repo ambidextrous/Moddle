@@ -335,16 +335,11 @@ def about(request):
 
 @login_required
 def storelatlong(request):
-    print "Got here!"
     context_dict = {'': ''}
     lat = float(request.GET.get('lat', ''))
     lng = float(request.GET.get('lng', ''))
-    print "User-entered lat value = "+str(lat)
-    print "User-enetered lng value = "+str(lng)
     profile = request.user.userprofile
     profile.latitude = lat
     profile.longitude = lng
     profile.save()
-    print "UserProfile.latitude = "+str(UserProfile.latitude)
-    print "UserProfile.longitude = "+str(UserProfile.longitude)
     return HttpResponse("OK")
