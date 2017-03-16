@@ -131,4 +131,4 @@ MEDIA_URL = '/media/'
 
 # The page users are directed to if they are not logged in,
 # and are trying to access pages requiring authentication
-LOGIN_URL = '/moddle/login/'
+LOGIN_URL = '/login/'
