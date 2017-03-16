@@ -1,0 +1,13 @@
+Django==1.10.3
+Pillow==4.0.0
+South==1.0.2
+django-appconf==1.0.2
+django-classy-tags==0.8.0
+django-easy-maps==0.9.3
+django-registration-redux==1.4
+funcsigs==1.0.2
+geopy==1.11.0
+mock==2.0.0
+olefile==0.44
+pbr==2.0.0
+six==1.10.0
