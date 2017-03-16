@@ -38,5 +38,6 @@ urlpatterns = [
     url(r'^(?P<username>[\w\-]+)/mybookings/$', views.view_bookings, name='view_bookings'),
     url(r'^(?P<username>[\w\-]+)/addbike/$', views.upload_bike, name='upload_bike'),
     url(r'^bike/(?P<bike_id_slug>[\w\-]+)/$', views.bike_profile, name='bike_profile'),
+    url(r'^bike/(?P<bike_id_slug>[\w\-]+)/delete/$', views.delete_bike, name='delete_bike'),
     url(r'^(?P<bike_id_slug>[\w\-]+)/request/$', views.request_bike, name='request_bike'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

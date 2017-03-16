@@ -30,10 +30,12 @@
 		{% if user.is_authenticated %}
 		<p>
 		<a href="{% url 'request_bike' bike.id %}" class="btn btn-primary">Book this bike</button>
-		</p>
+		</p>				
 		{% endif %}
 
-	
+		{% if request.user.userprofile == userprofile and user.is_authenticated %}
+		<p> <a href="{% url 'delete_bike' bike.id %}">Delete Bike</a></p>
+		{% endif %}	
 		
 		<p hidden id=userLat>{{ bike.owner.latitude }}</p>
 		<p hidden id=userLong>{{ bike.owner.longitude }}</p>		

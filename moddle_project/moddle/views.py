@@ -5,8 +5,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from moddle.models import User, UserProfile, Bike, Booking
 from moddle.forms import UserForm, UserProfileForm, BikeForm, BookingForm
+from django.shortcuts import redirect
 # Imported to send lat-long info
 from django.http import JsonResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
 def get_user_object(request):
     if request.user.is_authenticated():
@@ -77,6 +80,9 @@ def user_profile(request, username):
         # Note that filter() will return a list of bike objects or an empty list
         users_bikes = Bike.objects.filter(owner=userprofile)
         context_dict['bikes'] = users_bikes
+        
+        if request.GET.get('delete') == 'true':
+            context_dict['delete_success_message'] = True
 
     except UserProfile.DoesNotExist:
         # We get here if we didn't find the specified category.
@@ -85,7 +91,8 @@ def user_profile(request, username):
         print "User does not exist"
         context_dict['bikes'] = None
         context_dict['userprofile'] = None
-
+	
+    print context_dict
     return render(request, 'moddle/user_profile.html', context=context_dict)
 
 def user_login(request):
@@ -262,6 +269,9 @@ def bike_profile(request, bike_id_slug):
 
         context_dict['bike'] = bike
 
+        userprofile = bike.owner
+        context_dict['userprofile'] = userprofile		
+		
     except Bike.DoesNotExist:
         # We get here if we didn't find the specified category.
         # Don't do anything -
@@ -343,3 +353,31 @@ def storelatlong(request):
     profile.longitude = lng
     profile.save()
     return HttpResponse("OK")
+
+@login_required
+def delete_bike(request, bike_id_slug):
+    context_dict = {}
+    deletionStatus = "?delete=false"
+	
+    try:
+        # Can we find a bike with the given bike id slug?
+        # If we can't, the .get() method raises a DoesNotExist exception.
+        # So the .get() method returns one model instance or raises an exception.
+
+        bike = Bike.objects.get(id=bike_id_slug)		
+        if request.user.userprofile == bike.owner:
+            #bike = Bike.objects.get(id=bike_id_slug)
+            bike.delete()
+            deletionStatus = "?delete=true" 			
+			
+    except Bike.DoesNotExist:
+        # We get here if we didn't find the specified category.
+        # Don't do anything -
+        # the template will display the "no category" message for us.
+        print "Bike does not exist"
+        context_dict['bike'] = None
+
+    #return redirect('user_profile', username=request.user.username)
+    return HttpResponseRedirect( reverse('user_profile', args=[request.user.username]) + deletionStatus )
+
+	
