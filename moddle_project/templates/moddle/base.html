@@ -48,6 +48,14 @@
 </head>
 
 <body>
+
+{% if messages %}
+<div>
+        {% for message in messages %}
+            <h2{% if message.tags %} class="{{ message.tags }}"{% endif %}><span>{{ message }}</span></h2>
+        {% endfor %}
+</div>
+{% endif %}
 	{% block body_block %}
 	{% endblock %}
 	

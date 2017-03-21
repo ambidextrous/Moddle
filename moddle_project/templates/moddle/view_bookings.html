@@ -2,15 +2,6 @@
 {% load staticfiles %}
 
 {% block body_block %}
-
-{% if approval_message %}
-<h2><em>Booking  approved.</em></h2>
-{% endif %}
-
-{% if rejection_message %}
-<h2><em>Booking rejected.</em></h2>
-{% endif %}
-
     <h1>My Bookings</h1>
     {% if bookings_made %}
         {% for booking in bookings_made %}

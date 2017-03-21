@@ -10,6 +10,7 @@ from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 def get_user_object(request):
     if request.user.is_authenticated():
@@ -73,17 +74,11 @@ def user_profile(request, username):
         userprofile = UserProfile.objects.get(user=user)
         context_dict['userprofile'] = userprofile
 
-        #context_dict['latitude'] = UserProfile.latitude
-        #context_dict['longitude'] = UserProfile.longitude
-
         # Retrieve all of the associated bikes.
         # Note that filter() will return a list of bike objects or an empty list
         users_bikes = Bike.objects.filter(owner=userprofile)
         context_dict['bikes'] = users_bikes
         
-        if request.GET.get('delete') == 'true':
-            context_dict['delete_success_message'] = True
-
     except UserProfile.DoesNotExist:
         # We get here if we didn't find the specified category.
         # Don't do anything -
@@ -102,11 +97,6 @@ def user_login(request):
     if request.method == 'POST':
         # Gather the username and password provided by the user.
         # This information is obtained from the login form.
-        # We use request.POST.get('<variable>') as opposed
-        # to request.POST['<variable>'], because the
-        # request.POST.get('<variable>') returns None if the
-        # value does not exist, while request.POST['<variable>']
-        # will raise a KeyError exception.
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -123,15 +113,17 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
+                # confirmation message
+                messages.success(request, 'Login successful.')
                 return HttpResponseRedirect(reverse('index'))
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your account is disabled.")
         else:
             # Bad login details were provided. So we can't log the user in.
-            print("Invalid login details for user: {0}, {1}".format(username, password))
-            return HttpResponse(
-                "Invalid login details supplied. The supplied password in combination with the username '" + username + "' were incorrect.")
+            print("Invalid login attempt with details: {0}, {1}".format(username, password))
+            messages.error(request, 'The supplied password in combination with the username "' + username + '" were incorrect.')
+            return HttpResponseRedirect(reverse('login'))
 
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
@@ -171,8 +163,6 @@ def register(request):
             # we set commit=False. This delays saving the model
             # until we're ready to avoid integrity problems
             
-
-
             profile = profile_form.save(commit=False)
             profile.user = user
 
@@ -189,6 +179,9 @@ def register(request):
             
             # Now we save the UserProfile model instance
             profile.save()
+            
+            # confirmation message	
+            messages.success(request, 'Account created successfully.')	
 
             # Update our variable to indicate that the template
             # registration was successful
@@ -224,11 +217,8 @@ def search(request):
 
 @login_required
 def upload_bike(request, username):
-    if request.user.is_authenticated and str(request.user.username) == username:
-        print request.user
 
     owner = UserProfile.objects.get(user=request.user)
-
     form = BikeForm()
 
     if request.method == 'POST':
@@ -247,6 +237,10 @@ def upload_bike(request, username):
             bike.price_per_day = round(float(request.POST.get('price_per_day')),2)	
             
             bike.save()
+            
+            # confirmation message
+            messages.success(request, 'Thank you, your bike has been uploaded.')
+            
             return HttpResponseRedirect(reverse('index'))
         else:
             print form.errors
@@ -295,16 +289,20 @@ def request_bike(request, bike_id_slug):
         print("Booking detail: {0} {1} {2}".format(bike, owner, borrower))
 
         if form.is_valid():
-            book = form.save(commit=False)
+            booking = form.save(commit=False)
 
             # Retreive the booking information
-            book.owner = owner
-            book.borrower = borrower
-            book.bikeid = bike
-            book.save()
-            print("Booking detail: {0}".format(book.id))
+            booking.owner = owner
+            booking.borrower = borrower
+            booking.bikeid = bike
+            booking.save()
+
+            # confirmation message
+            messages.success(request, 'Bike request was sent to ' + owner.user.username + ' successfully.')	
+            
             return HttpResponseRedirect(reverse('index'))
         else:
+            messages.error(request, 'Invalid details...')	
             print form.errors
 
     context_dict = {'bike': bike, 'form':form}
@@ -322,10 +320,10 @@ def view_bookings(request, username):
         context_dict = {}
         
         # booking approval/rejection notifications:
-        if request.GET.get('approval') == 'true':
-            context_dict['approval_message'] = True
-        if request.GET.get('rejection') == 'true':
-            context_dict['rejection_message'] = True
+        #if request.GET.get('approval') == 'true':
+        #    context_dict['approval_message'] = True
+        #if request.GET.get('rejection') == 'true':
+        #    context_dict['rejection_message'] = True
         
         try:
             # Return all the bookings made by the user
@@ -376,9 +374,6 @@ def storelatlong(request):
 
 @login_required
 def delete_bike(request, bike_id_slug):
-    context_dict = {}
-    deletionStatus = "?delete=false"
-	
     try:
         # Can we find a bike with the given bike id slug?
         # If we can't, the .get() method raises a DoesNotExist exception.
@@ -387,22 +382,21 @@ def delete_bike(request, bike_id_slug):
         bike = Bike.objects.get(id=bike_id_slug)		
         if request.user.userprofile == bike.owner:
             bike.delete()
-            deletionStatus = "?delete=true" 			
+            
+            # confirmation message
+            messages.error(request, 'Your bike has been successfully deleted.')		
 			
     except Bike.DoesNotExist:
         # We get here if we didn't find the specified category.
         # Don't do anything -
         # the template will display the "no category" message for us.
         print "Bike does not exist"
-        context_dict['bike'] = None
 
     #return redirect('user_profile', username=request.user.username)
-    return HttpResponseRedirect( reverse('user_profile', args=[request.user.username]) + deletionStatus )
+    return HttpResponseRedirect(reverse('user_profile', args=[request.user.username]))
 
 @login_required
 def approve_booking(request, booking_id):
-    approvalStatus = "?approval=false"
-	
     try:
         # Can we find a bike with the given bike id slug?
         # If we can't, the .get() method raises a DoesNotExist exception.
@@ -412,7 +406,8 @@ def approve_booking(request, booking_id):
         if request.user.userprofile == booking.owner:
             booking.booking_approved = True
             booking.save()
-            approvalStatus = "?approval=true" 				
+            # confirmation message
+            messages.success(request, 'Booking successfully approved.')				
 			
     except Booking.DoesNotExist:
         # We get here if we didn't find the specified category.
@@ -421,12 +416,10 @@ def approve_booking(request, booking_id):
         print "booking does not exist"
 
     #return redirect('view_bookings', username=request.user.username)
-    return HttpResponseRedirect( reverse('view_bookings', args=[request.user.username]) + approvalStatus )
+    return HttpResponseRedirect(reverse('view_bookings', args=[request.user.username]))
 
 @login_required
 def reject_booking(request, booking_id):
-    rejectionStatus = "?rejection=false"
-	
     try:
         # Can we find a bike with the given bike id slug?
         # If we can't, the .get() method raises a DoesNotExist exception.
@@ -436,7 +429,9 @@ def reject_booking(request, booking_id):
         if request.user.userprofile == booking.owner:
             booking.booking_approved = False
             booking.save()
-            rejectionStatus = "?rejection=true" 			
+            
+            # confirmation message
+            messages.error(request, 'Booking successfully rejected.')
 			
     except Booking.DoesNotExist:
         # We get here if we didn't find the specified category.
@@ -445,4 +440,4 @@ def reject_booking(request, booking_id):
         print "booking does not exist"
 
     #return redirect('view_bookings', username=request.user.username)
-    return HttpResponseRedirect( reverse('view_bookings', args=[request.user.username]) + rejectionStatus )
+    return HttpResponseRedirect(reverse('view_bookings', args=[request.user.username]))

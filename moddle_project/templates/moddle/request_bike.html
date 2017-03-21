@@ -2,7 +2,9 @@
 {% load staticfiles %}
 
 {% block body_block %}
-<p>Welcome to the request bike page</p>
+<h1>Bike Request Form</h1>
+    <p>Creating a booking for the bike '<a href="{% url 'bike_profile' bike.id %}">{{ bike.name }}</a>' belonging to <a href="{% url 'user_profile' bike.owner.user.username %}">{{ bike.owner.user.username }}</a>,<br /> who will then need to accept or reject your request.</p>
+    <p>Format: yyyy-mm-dd</p>
 	<form id="book_form" method="post" action="/{{bike.id}}/request/">
 
 		{% csrf_token %}
@@ -17,6 +19,20 @@
 		{% endfor %}
 
 		<!-- Provide a button to click to submit the form. -->
-		<p><button class="btn btn-primary" type="submit" name="submit"\>Book Now</button></p>
+        <p><input type="submit" name="submit" value="Book Now" /></p>
 	</form>
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#id_start_date" ).datepicker({
+              dateFormat: "yy-mm-dd"
+            });
+            $( "#id_finish_date" ).datepicker({
+              dateFormat: "yy-mm-dd"
+            });
+        } );
+    </script>
 {% endblock %}

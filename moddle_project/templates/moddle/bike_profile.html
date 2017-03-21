@@ -6,11 +6,8 @@
 <h1>{{ bike.name }}</h1>
 
     <div id="map">
-	
-	
-	
-	</div>
 
+	</div>
 		<br />
         <p>{{ bike.description }}</p>
 		<p>Price per day: &#163;{{ bike.price_per_day }}</p>
@@ -37,7 +34,4 @@
 	
 		<p><a href="{% url 'user_profile' bike.owner.user.username %}">Owner profile</a></p>
 
-
-
-		
 {% endblock %}

@@ -12,14 +12,30 @@ li {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-li:last-child {
-	border-right: none;
-}
-
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Poiret One', cursive, Arial, Helvetica, sans-serif;
 	color: #4F5D73;
 	text-align: center;
+}
+
+/* Styling for li items for message notifications and confirmations */
+h2.success span,h2.error span {
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+  display: float;
+}
+h2.success span{
+    color: green;
+}
+
+h2.error span {
+    color: red;
+}
+h2.success span:hover,h2.error span:hover {
+  font-size: 30px;
 }
 
 #moddleLogo {
