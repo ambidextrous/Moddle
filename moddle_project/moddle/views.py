@@ -319,12 +319,6 @@ def view_bookings(request, username):
         user_profile = UserProfile.objects.get(user=user)
         context_dict = {}
         
-        # booking approval/rejection notifications:
-        #if request.GET.get('approval') == 'true':
-        #    context_dict['approval_message'] = True
-        #if request.GET.get('rejection') == 'true':
-        #    context_dict['rejection_message'] = True
-        
         try:
             # Return all the bookings made by the user
             bookings_made = Booking.objects.filter(borrower=user_profile)

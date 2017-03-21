@@ -28,7 +28,7 @@ SECRET_KEY = 'xn(hcppsbdqlx59%l@r-^aj-yg)522%3m(6gu%j-cn$h!wovwq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1',u'moddle.pythonanywhere.com']
 
 # Application definition
 
