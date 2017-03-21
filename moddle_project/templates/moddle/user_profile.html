@@ -43,23 +43,20 @@
     {% if bikes %}
         {% for bike in bikes %}
         <div id="bike">
-            
 			<p>
 				<a href="{% url 'bike_profile' bike.id %}">{{ bike.name }}</a>
 			</p>
-			
 			<p>
                 {{ bike.description }}
             </p>
-            <img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/>
-			
-			
-			
-			
-			
+            <a href="{% url 'bike_profile' bike.id %}"><img src="{{ MEDIA_URL }}{{ bike.bike_picture }}" alt="{{ bike.name }}"/></a>
         </div>
         {% endfor %}
     {% else %}
-        <p><strong>This user has no bikes.</strong></p>
+        {% if request.user == userprofile.user and user.is_authenticated %}
+            <p><strong>You have shared no bikes yet, upload a bike <a href="{% url 'upload_bike' request.user.username %}">here</a>!</strong></p>
+        {% else %}
+            <p><strong>This user has no bikes.</strong></p>
+        {% endif %}
     {% endif %}
 {% endblock %}

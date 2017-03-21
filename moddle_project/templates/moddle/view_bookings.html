@@ -3,20 +3,70 @@
 
 {% block body_block %}
 
-<h1>My Bookings</h1>
-    {% if bookings %}
-        {% for booking in bookings %}
+{% if approval_message %}
+<h2><em>Booking  approved.</em></h2>
+{% endif %}
+
+{% if rejection_message %}
+<h2><em>Booking rejected.</em></h2>
+{% endif %}
+
+    <h1>My Bookings</h1>
+    {% if bookings_made %}
+        {% for booking in bookings_made %}
         <div id="bike">
-            <p>Booking ID: {{ book.id }}<br />
+            <p>Booking ID: {{ booking.id }}<br />
             <a href="{% url 'bike_profile' booking.bikeid.id %}" class="btn btn-primary">Bike: {{ booking.bikeid }}</button></a><br />
             <a href="{% url 'user_profile' booking.owner.user.username %}" class="btn btn-primary">Owner: {{ booking.owner }}</button></a><br />
             Start date: {{ booking.start_date }}<br />
             Finish date: {{ booking.finish_date }}<br />
-            </p>
+            Approval Status:<strong>
+            {% if booking.booking_approved == null %}
+                Pending
+            {% elif booking.booking_approved == True %}
+            <span style='color:green;'>Approved by bike owner.</span>
+            {% else %}
+                <span style='color:red;'>Rejected by bike owner.</span>
+            {% endif %}
+            </strong></p>
+            <p>
+				<a href ="{% url 'bike_profile' booking.bikeid.id %}"><img src="{{ MEDIA_URL }}{{ booking.bikeid.bike_picture }}" alt="{{ bike.name }}"/></a>
+			</p>
         </div>
+        <hr>
         {% endfor %}
     {% else %}
-			<p><strong>You currently have no bookings on record.</strong></p>
+			<p><strong>You have currently made no bookings.</strong></p>
             <p><a href="{% url 'index' %}">Browse bikes here</a>.</p>
     {% endif %}
+    
+    <h1>Requests for my Bikes</h1>
+    {% if bookings_received %}
+        {% for booking in bookings_received %}
+        <div id="bike">
+            <p>Booking ID: {{ booking.id }}<br />
+            <a href="{% url 'bike_profile' booking.bikeid.id %}" class="btn btn-primary">Bike: {{ booking.bikeid }}</button></a><br />
+            <a href="{% url 'user_profile' booking.borrower.user.username %}" class="btn btn-primary">Borrower: {{ booking.borrower }}</button></a><br />
+            Start date: {{ booking.start_date }}<br />
+            Finish date: {{ booking.finish_date }}<br />
+            Respond to booking: <a href="{% url 'approve_booking' booking.id %}">Approve</a> or <a href="{% url 'reject_booking' booking.id %}">Reject</a><br />
+            Approval Status:<strong>
+            {% if booking.booking_approved == null %}
+                Please respond to this request.
+            {% elif booking.booking_approved == True %}
+            <span style='color:green;'>You have approved this request.</span>
+            {% else %}
+                <span style='color:red;'>You have rejected this request.</span>
+            {% endif %}
+            </p>
+            <p>
+				<a href ="{% url 'bike_profile' booking.bikeid.id %}"><img src="{{ MEDIA_URL }}{{ booking.bikeid.bike_picture }}" alt="{{ bike.name }}"/></a>
+			</p>
+        </div>
+        <hr>
+        {% endfor %}
+    {% else %}
+			<p><strong>There are currently no requests for your bikes.</strong></p>
+    {% endif %}
+    
 {% endblock %}

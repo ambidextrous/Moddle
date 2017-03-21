@@ -314,22 +314,42 @@ def request_bike(request, bike_id_slug):
 def view_bookings(request, username):
 
     user = User.objects.get(username=username)
-    borrower = UserProfile.objects.get(user=user)
+    
+    # check if the requester is authenticated and if it is their own bookings page.
+    if request.user.is_authenticated and request.user == user:
 
-    try:
-        # Return all the bookings made from the user
-        # If we can't, the .get() method raises a DoesNotExist exception.
-        # So the .get() method returns one model instance or raises an exception.
+        user_profile = UserProfile.objects.get(user=user)
+        context_dict = {}
+        
+        # booking approval/rejection notifications:
+        if request.GET.get('approval') == 'true':
+            context_dict['approval_message'] = True
+        if request.GET.get('rejection') == 'true':
+            context_dict['rejection_message'] = True
+        
+        try:
+            # Return all the bookings made by the user
+            bookings_made = Booking.objects.filter(borrower=user_profile)
+            context_dict['bookings_made'] = bookings_made
+        except Booking.DoesNotExist:
+            # Don't do anything -
+            # the template will display the "no booking" message for us.
+            print "No booking by this user"
 
-        bookings = Booking.objects.filter(borrower=borrower)
+        try:
+            # Return all the bookings made by the user
+            bookings_received = Booking.objects.filter(owner=user_profile)
+            context_dict['bookings_received'] = bookings_received
+        except Booking.DoesNotExist:
+            # Don't do anything -
+            # the template will display the "no booking" message for us.
+            print "No booking for this users bikes"
 
-    except Booking.DoesNotExist:
-        # Don't do anything -
-        # the template will display the "no booking" message for us.
-        print "No booking for this user"
-
-    context_dict = {'bookings': bookings}
-    return render(request, 'moddle/view_bookings.html', context=context_dict)
+        return render(request, 'moddle/view_bookings.html', context=context_dict)
+    
+    else:
+        # user has no business being here
+        return HttpResponseRedirect(reverse('index'))
 
 def faq(request):
     context_dict = {'': ''}
@@ -366,7 +386,6 @@ def delete_bike(request, bike_id_slug):
 
         bike = Bike.objects.get(id=bike_id_slug)		
         if request.user.userprofile == bike.owner:
-            #bike = Bike.objects.get(id=bike_id_slug)
             bike.delete()
             deletionStatus = "?delete=true" 			
 			
@@ -380,4 +399,50 @@ def delete_bike(request, bike_id_slug):
     #return redirect('user_profile', username=request.user.username)
     return HttpResponseRedirect( reverse('user_profile', args=[request.user.username]) + deletionStatus )
 
+@login_required
+def approve_booking(request, booking_id):
+    approvalStatus = "?approval=false"
 	
+    try:
+        # Can we find a bike with the given bike id slug?
+        # If we can't, the .get() method raises a DoesNotExist exception.
+        # So the .get() method returns one model instance or raises an exception.
+
+        booking = Booking.objects.get(id=booking_id)		
+        if request.user.userprofile == booking.owner:
+            booking.booking_approved = True
+            booking.save()
+            approvalStatus = "?approval=true" 				
+			
+    except Booking.DoesNotExist:
+        # We get here if we didn't find the specified category.
+        # Don't do anything -
+        # the template will display the "no category" message for us.
+        print "booking does not exist"
+
+    #return redirect('view_bookings', username=request.user.username)
+    return HttpResponseRedirect( reverse('view_bookings', args=[request.user.username]) + approvalStatus )
+
+@login_required
+def reject_booking(request, booking_id):
+    rejectionStatus = "?rejection=false"
+	
+    try:
+        # Can we find a bike with the given bike id slug?
+        # If we can't, the .get() method raises a DoesNotExist exception.
+        # So the .get() method returns one model instance or raises an exception.
+
+        booking = Booking.objects.get(id=booking_id)		
+        if request.user.userprofile == booking.owner:
+            booking.booking_approved = False
+            booking.save()
+            rejectionStatus = "?rejection=true" 			
+			
+    except Booking.DoesNotExist:
+        # We get here if we didn't find the specified category.
+        # Don't do anything -
+        # the template will display the "no category" message for us.
+        print "booking does not exist"
+
+    #return redirect('view_bookings', username=request.user.username)
+    return HttpResponseRedirect( reverse('view_bookings', args=[request.user.username]) + rejectionStatus )

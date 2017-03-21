@@ -22,11 +22,6 @@
 
 		<script src='{% static "js/otherUserMapDisplay.js" %}'></script>		
 
-
-		
-		
-		
-		
 		{% if user.is_authenticated %}
 		<p>
 		<a href="{% url 'request_bike' bike.id %}" class="btn btn-primary">Book this bike</button>

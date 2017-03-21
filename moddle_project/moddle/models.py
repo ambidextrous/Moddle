@@ -59,7 +59,8 @@ class Booking(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='owner')
     borrower = models.ForeignKey(UserProfile, related_name='borrower')
     bikeid = models.ForeignKey(Bike)
-
+    booking_approved = models.NullBooleanField(blank=True)
+    
     def __str__(self):
         return self.id
 
