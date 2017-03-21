@@ -4,6 +4,7 @@
 {% block body_block %}
 <h1>Bike Request Form</h1>
     <p>Creating a booking for the bike '<a href="{% url 'bike_profile' bike.id %}">{{ bike.name }}</a>' belonging to <a href="{% url 'user_profile' bike.owner.user.username %}">{{ bike.owner.user.username }}</a>,<br /> who will then need to accept or reject your request.</p>
+    <p>Price per day: &#163;{{ bike.price_per_day }}</p>
     <p>Format: yyyy-mm-dd</p>
 	<form id="book_form" method="post" action="/{{bike.id}}/request/">
 
