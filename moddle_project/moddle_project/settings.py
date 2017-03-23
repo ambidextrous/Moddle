@@ -26,7 +26,7 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'xn(hcppsbdqlx59%l@r-^aj-yg)522%3m(6gu%j-cn$h!wovwq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1',u'moddle.pythonanywhere.com']
 
