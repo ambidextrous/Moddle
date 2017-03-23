@@ -9,8 +9,9 @@
     <h1>Welcome cyclist!</h1>
     <h2><a href="{% url 'register' %}">Register here</a> to request one of the beautiful bikes below.</h2>
 {% endif %}
-
-    <h2>Start here for Quick search.
+    
+    <h2>Check out the <a href="{% url 'map' %}">Map View</a></h2>
+    <h2>...or start here for quick search:
     <form id="search" action="{% url 'index' %}">
         <select name="bike_gender">
         <option value="0" selected>Gender</option>
@@ -39,6 +40,9 @@
         <input type="submit" name="submit" value="search">
     </form>
     </h2>
+    
+    
+    
     {% if query_set %}
 	<h3>Your search queries:</h3>
 	<p>- 

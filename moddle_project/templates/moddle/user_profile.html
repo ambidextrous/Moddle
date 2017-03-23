@@ -5,7 +5,9 @@
 
 {% if request.user == userprofile.user and user.is_authenticated %}
     <h1>Welcome back {{ userprofile.user.first_name }}!</h1>
+    {% if not bikes %}
     <p>You have shared no bikes yet, upload a bike <a href="{% url 'upload_bike' request.user.username %}">here</a>.</p>
+    {% endif %}
 {% else %}
     <h1>{{ userprofile.user.first_name }} {{ userprofile.user.last_name }}'s profile.</h1>
 {% endif %}

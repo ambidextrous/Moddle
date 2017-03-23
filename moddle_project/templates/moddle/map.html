@@ -1,0 +1,14 @@
+{% extends 'moddle/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+    <h1>Map View</h1>
+    <div id="map"></div>
+
+    <script src='{% static "js/allUserMapDisplay.js" %}'></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVZpuFDB4wTBAxpaLPKEtQXIgMvkxUTz8&callback=initMap">
+    </script>
+
+{% endblock %}

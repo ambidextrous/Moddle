@@ -10,7 +10,12 @@ from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+# User notifications
 from django.contrib import messages
+
+#Attempt to make a RESTful API for the map page
+from rest_framework import viewsets
+from moddle.serializers import UserSerializer, CoordinatesSerializer, BikeSerializer
 
 def get_user_object(request):
     if request.user.is_authenticated():
@@ -66,10 +71,7 @@ def user_profile(request, username):
     context_dict = {}
 
     try:
-        # Can we find a category name slug with the given name?
-        # If we can't, the .get() method raises a DoesNotExist exception.
-        # So the .get() method returns one model instance or raises an exception.
-
+        # Find a userprofile given the username slug
         user = User.objects.get(username=username)
         userprofile = UserProfile.objects.get(user=user)
         context_dict['userprofile'] = userprofile
@@ -80,9 +82,6 @@ def user_profile(request, username):
         context_dict['bikes'] = users_bikes
         
     except UserProfile.DoesNotExist:
-        # We get here if we didn't find the specified category.
-        # Don't do anything -
-        # the template will display the "no category" message for us.
         print "User does not exist"
         context_dict['bikes'] = None
         context_dict['userprofile'] = None
@@ -90,6 +89,19 @@ def user_profile(request, username):
     print context_dict
     return render(request, 'moddle/user_profile.html', context=context_dict)
 
+def map(request):
+    # Create a context dictionary which we can pass to the template rendering engine
+    context_dict = {}
+
+    try:
+        bike_list = Bike.objects.all()
+        context_dict['bike_list'] = bike_list
+        
+    except Bike.DoesNotExist:
+        print "Bike does not exist"
+
+    return render(request, 'moddle/map.html', context=context_dict)
+    
 def user_login(request):
     if request.user.is_authenticated: 
         return HttpResponseRedirect(reverse('index'))
@@ -431,3 +443,26 @@ def reject_booking(request, booking_id):
         print "booking does not exist"
 
     return HttpResponseRedirect(reverse('view_bookings', args=[request.user.username]))
+
+##Attempt to make a RESTful API for the map page
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+
+class CoordinatesViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows coordinates to be viewed or edited.
+    """
+    queryset = UserProfile.objects.all()
+    serializer_class = CoordinatesSerializer
+    
+class BikeViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Bike.objects.all()
+    serializer_class = BikeSerializer
+    
