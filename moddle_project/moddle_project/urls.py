@@ -41,5 +41,6 @@ urlpatterns = [
     url(r'^bike/(?P<bike_id_slug>[\w\-]+)/delete/$', views.delete_bike, name='delete_bike'),
     url(r'^booking/(?P<booking_id>[\w\-]+)/approve/$', views.approve_booking, name='approve_booking'),
     url(r'^booking/(?P<booking_id>[\w\-]+)/reject/$', views.reject_booking, name='reject_booking'),
+    url(r'^booking/(?P<booking_id>[\w\-]+)/delete/$', views.delete_booking, name='delete_booking'),
     url(r'^(?P<bike_id_slug>[\w\-]+)/request/$', views.request_bike, name='request_bike'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

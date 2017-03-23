@@ -19,7 +19,10 @@
             {% else %}
                 <span style='color:red;'>Rejected by bike owner.</span>
             {% endif %}
-            </strong></p>
+            </strong>
+            <br />
+            Delete booking?: <a href="{% url 'delete_booking' booking.id %}">Delete</a>
+            </p>
             <p>
 				<a href ="{% url 'bike_profile' booking.bikeid.id %}"><img src="{{ MEDIA_URL }}{{ booking.bikeid.bike_picture }}" alt="{{ bike.name }}"/></a>
 			</p>

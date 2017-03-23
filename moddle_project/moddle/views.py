@@ -369,10 +369,7 @@ def storelatlong(request):
 @login_required
 def delete_bike(request, bike_id_slug):
     try:
-        # Can we find a bike with the given bike id slug?
-        # If we can't, the .get() method raises a DoesNotExist exception.
-        # So the .get() method returns one model instance or raises an exception.
-
+        # Find the bike with the given bike id slug
         bike = Bike.objects.get(id=bike_id_slug)		
         if request.user.userprofile == bike.owner:
             bike.delete()
@@ -381,22 +378,31 @@ def delete_bike(request, bike_id_slug):
             messages.error(request, 'Your bike has been successfully deleted.')		
 			
     except Bike.DoesNotExist:
-        # We get here if we didn't find the specified category.
-        # Don't do anything -
-        # the template will display the "no category" message for us.
         print "Bike does not exist"
 
-    #return redirect('user_profile', username=request.user.username)
     return HttpResponseRedirect(reverse('user_profile', args=[request.user.username]))
+    
+@login_required
+def delete_booking(request, booking_id):
+    try:
+        # Find the booking with the given bike id slug
+        booking = Booking.objects.get(id=booking_id)		
+        if request.user.userprofile == booking.borrower:
+            booking.delete()
+            
+            # confirmation message
+            messages.error(request, 'Your booking has been successfully deleted.')		
+			
+    except Booking.DoesNotExist:
+        print "Booking does not exist"
+
+    return HttpResponseRedirect(reverse('view_bookings', args=[request.user.username]))
 
 @login_required
 def approve_booking(request, booking_id):
     try:
-        # Can we find a bike with the given bike id slug?
-        # If we can't, the .get() method raises a DoesNotExist exception.
-        # So the .get() method returns one model instance or raises an exception.
-
-        booking = Booking.objects.get(id=booking_id)		
+        # Find the booking with the given bike id slug
+        booking = Booking.objects.get(id=booking_id)
         if request.user.userprofile == booking.owner:
             booking.booking_approved = True
             booking.save()
@@ -404,9 +410,6 @@ def approve_booking(request, booking_id):
             messages.success(request, 'Booking successfully approved.')				
 			
     except Booking.DoesNotExist:
-        # We get here if we didn't find the specified category.
-        # Don't do anything -
-        # the template will display the "no category" message for us.
         print "booking does not exist"
 
     #return redirect('view_bookings', username=request.user.username)
@@ -415,11 +418,8 @@ def approve_booking(request, booking_id):
 @login_required
 def reject_booking(request, booking_id):
     try:
-        # Can we find a bike with the given bike id slug?
-        # If we can't, the .get() method raises a DoesNotExist exception.
-        # So the .get() method returns one model instance or raises an exception.
-
-        booking = Booking.objects.get(id=booking_id)		
+        # Find the booking with the given bike id slug
+        booking = Booking.objects.get(id=booking_id)
         if request.user.userprofile == booking.owner:
             booking.booking_approved = False
             booking.save()
@@ -428,10 +428,6 @@ def reject_booking(request, booking_id):
             messages.error(request, 'Booking successfully rejected.')
 			
     except Booking.DoesNotExist:
-        # We get here if we didn't find the specified category.
-        # Don't do anything -
-        # the template will display the "no category" message for us.
         print "booking does not exist"
 
-    #return redirect('view_bookings', username=request.user.username)
     return HttpResponseRedirect(reverse('view_bookings', args=[request.user.username]))
