@@ -223,10 +223,6 @@ def user_logout(request):
     # Take the user back to the homepage.
     return HttpResponseRedirect(reverse('index'))
 
-def search(request):
-    context_dict = {'': ''}
-    return render(request, 'moddle/search.html', context=context_dict)
-
 @login_required
 def upload_bike(request, username):
 

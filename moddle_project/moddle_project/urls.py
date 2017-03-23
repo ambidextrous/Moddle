@@ -30,7 +30,6 @@ urlpatterns = [
     url(r'^about/$', views.about, name='about'),
     url(r'^contact_us/$', views.contact_us, name='contact_us'),
     url(r'^faq/$', views.faq, name='faq'),
-    url(r'^search/$', views.search, name='search'),
     
     #Attempt to make a RESTful API for the map page
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
